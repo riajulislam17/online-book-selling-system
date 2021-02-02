@@ -15,15 +15,17 @@
        <div class="w-25 mx-auto">
            <div class="border shadow p-5">
                <div class="border-bottom font-weight-bold text-center h3 bg-light mb-4">
-                   Register
+                   Admin Register
                </div>
+
+
                <div class="input-group mb-4">
                    <div class="input-group-prepend">
                    <span class="input-group-text">
-                       <i class="fa fa-user p-1"></i>
+                      <i class="fa fa-user p-1"></i>
                    </span>
                    </div>
-                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                   <input type="text" class="form-control" name="UserName" placeholder="User Name" aria-label="UserName" aria-describedby="basic-addon1">
                </div>
 
                <div class="input-group mb-4">
@@ -32,10 +34,23 @@
                        <i class="fa fa-key p-1"></i>
                    </span>
                    </div>
-                   <input type="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+                   <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1">
                </div>
+
+
+               <div class="input-group mb-4">
+                   <div class="input-group-prepend">
+                   <span class="input-group-text">
+                       <i class="fa fa-key p-1"></i>
+                   </span>
+                   </div>
+                   <input type="password" class="form-control" placeholder="Confirm Password" aria-label="password" aria-describedby="basic-addon1">
+               </div>
+
+
+
                <div class="d-flex justify-content-center">
-                   <button class="btn btn-success w-25">Login</button>
+                   <button class="btn btn-success w-50">Register</button>
                </div>
 
            </div>

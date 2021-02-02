@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="{{ asset('bootstrap-5.0.0-beta1-dist/css/bootstrap.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('fa/css/all.css') }}" rel="stylesheet"/>
+    <title>Register Page</title>
+    <meta http-equiv="refresh" content="5">
+</head>
+<body>
+    <div class="d-flex justify-content-center flex-column" style="min-height: 100vh">
+       <div class="w-25 mx-auto">
+           <div class="border shadow p-5">
+               <div class="border-bottom font-weight-bold text-center h3 bg-light mb-4">
+                   Create new User
+               </div>
+
+               <div class="input-group mb-4">
+                   <div class="input-group-prepend">
+                   <span class="input-group-text">
+                       <i class="fa fa-user p-1"></i>
+                   </span>
+                   </div>
+                   <input type="text" class="form-control" name="first_name" placeholder="First Name" aria-label="first_name" aria-describedby="basic-addon1">
+               </div>
+
+
+               <div class="input-group mb-4">
+                   <div class="input-group-prepend">
+                   <span class="input-group-text">
+                       <i class="fa fa-user p-1"></i>
+                   </span>
+                   </div>
+                   <input type="text" class="form-control" name="last_name" placeholder="Last Name" aria-label="last_name" aria-describedby="basic-addon1">
+               </div>
+
+
+               <div class="input-group mb-4">
+                   <div class="input-group-prepend">
+                   <span class="input-group-text">
+                      <i class="fa fa-phone p-1"></i>
+                   </span>
+                   </div>
+                   <input type="text" class="form-control" name="phone" placeholder="Phone Number" aria-label="phone" aria-describedby="basic-addon1">
+               </div>
+
+
+               <div class="input-group mb-4">
+                   <div class="input-group-prepend">
+                   <span class="input-group-text">
+                       <i class="fa fa-mail-bulk p-1"></i>
+                   </span>
+                   </div>
+                   <input type="text" class="form-control" name="email" placeholder="Email Address" aria-label="email" aria-describedby="basic-addon1">
+               </div>
+
+
+               <div class="input-group mb-4">
+                   <div class="input-group-prepend">
+                   <span class="input-group-text">
+                       <i class="fa fa-key p-1"></i>
+                   </span>
+                   </div>
+                   <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1">
+               </div>
+
+
+               <div class="input-group mb-4">
+                   <div class="input-group-prepend">
+                   <span class="input-group-text">
+                       <i class="fa fa-key p-1"></i>
+                   </span>
+                   </div>
+                   <input type="password" class="form-control" placeholder="Confirm Password" aria-label="password" aria-describedby="basic-addon1">
+               </div>
+
+
+
+               <div class="d-flex justify-content-center">
+                   <button class="btn btn-success w-50">Register</button>
+               </div>
+
+           </div>
+
+       </div>
+    </div>
+</body>
+</html>

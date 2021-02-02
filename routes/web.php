@@ -21,6 +21,14 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/register', function () {
-    return view('register');
+Route::get('/customer_register', function () {
+    return view('customer_register');
+});
+
+Route::get('/shop_register', function () {
+    return view('shop_register');
+});
+
+Route::get('/admin_register', function () {
+    return view('admin_register');
 });
