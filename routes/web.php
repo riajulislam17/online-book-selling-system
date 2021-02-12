@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,3 +34,6 @@ Route::get('/shop_register', function () {
 Route::get('/admin_register', function () {
     return view('admin_register');
 });
+
+Route::resource('/category', CategoryController::class);
+Route::resource('/book', ProductController::class);
