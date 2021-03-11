@@ -8,11 +8,7 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         //
@@ -21,11 +17,7 @@ class ProductController extends Controller
         return view('product.index', ['books' => $books]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
@@ -33,13 +25,8 @@ class ProductController extends Controller
         return view('product.create', ['category' => $categoryList]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         //
 
@@ -68,15 +55,9 @@ class ProductController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
+    public function show($id)
     {
-        //
+        return view('product.show', ['data' => Product::findOrFail($id)]);
     }
 
     /**

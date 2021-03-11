@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('/', DashboardController::class)->middleware('auth');
 Route::resource('/dashboard', DashboardController::class)->middleware('auth');
-Route::resource('/sellerDashboard', SellerController::class)->middleware('seller');
+Route::resource('seller', SellerController::class)->middleware('Seller');
 Route::resource('/category', CategoryController::class);
 Route::resource('/book', ProductController::class);
 

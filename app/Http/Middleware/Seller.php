@@ -17,11 +17,19 @@ class Seller
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check() && !Auth::user()->permission === 2)
+        if (!Auth::guest())
         {
-
+            if(!Auth::user()->permission === 2)
+            {
+                abort(403, 'Unauthorized action.');
+            }else{
+                return $next($request);
+            }
+        }else{
+            //return redirect('/login');
+            var_dump($next($request));
         }
-
         return $next($request);
+
     }
 }
