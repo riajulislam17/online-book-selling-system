@@ -12,7 +12,7 @@
  #### only when first time run
  `copy .env.example .env`
 
- ### then setup database and run 
+ ### then setup database and run (for update use this command)
  `php artisan migrate`
 
  ### Finally, your project is ready start project with this line
