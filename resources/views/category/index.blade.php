@@ -1,5 +1,5 @@
-@extends('layout.login')
-@section('title')
+@extends('layouts.theme')
+@section('page_name')
     Category list
 @endsection
 @section('body')

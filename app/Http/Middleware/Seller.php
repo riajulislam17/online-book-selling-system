@@ -19,15 +19,15 @@ class Seller
     {
         if (!Auth::guest())
         {
-            if(!Auth::user()->permission === 2)
+            if(!Auth::user()->permission === 2)  // label 2 is seller , 1 is admin and also 3 is customer
             {
                 abort(403, 'Unauthorized action.');
             }else{
                 return $next($request);
             }
         }else{
-            //return redirect('/login');
-            var_dump($next($request));
+            return redirect('/login');
+
         }
         return $next($request);
 

@@ -1,5 +1,8 @@
-@extends('layout.login')
+@extends('layouts.theme')
 @section('title')
+    Post List
+    @endsection
+@section('page_name')
     Post List
     @endsection
 @section('body')
