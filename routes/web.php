@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SellerController;
@@ -18,12 +19,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/', DashboardController::class)->middleware('auth');
+Route::resource('/', CustomerController::class);
 Route::resource('/dashboard', DashboardController::class)->middleware('auth');
 Route::resource('seller', SellerController::class)->middleware('Seller');
 Route::resource('/category', CategoryController::class);
 Route::resource('/book', ProductController::class);
+Route::resource('/customer', CustomerController::class);
+
+Route::get('public', function (){
+    return view('customer.index');
+});
 
 Auth::routes();
+
+Route::get('seller_login', function (){
+    return view('seller.login');
+});
+
+Route::post('seller_login', [App\Http\Controllers\CustomAuth\SellerController::class, 'login'])->name('customer.login');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('customer')->middleware('Seller');

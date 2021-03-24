@@ -39,7 +39,8 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function redirectTo() {
+    public function redirectTo(): string
+    {
         $role = Auth::user()->permission;
         switch ($role) {
             case '1':
