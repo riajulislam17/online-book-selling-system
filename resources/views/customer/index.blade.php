@@ -8,12 +8,35 @@
     <title>Welcome To {{ config('app.name') }}</title>
 
     <link rel="stylesheet" href="{{asset('bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css')}}">
+    <script type="text/javascript" href="{{asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+
     <script type="text/javascript" href="{{asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js')}}"></script>
 </head>
 <body>
     <div class="">
         <div class="">
-            Slide Show
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="http://placehold.it/750x150?text=1" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="http://placehold.it/750x150?text=2" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="http://placehold.it/750x150?text=3" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
         </div>
         <div>
             @if(!empty($products))
@@ -46,6 +69,10 @@
 
         </div>
     </div>
+    <script type="text/javascript" href="{{asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" href="{{asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js')}}"></script>
 </body>
 
 </html>

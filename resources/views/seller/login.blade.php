@@ -12,6 +12,11 @@
 <body>
     <div class="d-flex justify-content-center flex-column" style="min-height: 100vh">
        <div class="w-25 mx-auto">
+           <div class="">
+               @if(Session::has('message'))
+                   <p class="alert alert-success font-weight-bold">{{ Session::get('message') }}</p>
+               @endif
+           </div>
            <form action="{{route('customer.login')}}" method="post">
                @csrf
                <div class="border shadow p-5">

@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class SellerController extends Controller {
+class AdminController extends Controller {
 
     public function login(Request $request)
     {
@@ -15,7 +15,7 @@ class SellerController extends Controller {
                 'password' => 'required'
             ]);
 
-            $cr = array('email' => $request->email, 'password' => $request->password, 'permission' => 2);
+            $cr = array('email' => $request->email, 'password' => $request->password, 'permission' => 1);
             if(Auth::attempt($cr, true)){
                 return redirect('book');
             }else{

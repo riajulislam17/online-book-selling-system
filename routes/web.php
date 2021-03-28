@@ -22,12 +22,12 @@ use Illuminate\Support\Facades\Route;
 Route::resource('/', CustomerController::class);
 Route::resource('/dashboard', DashboardController::class)->middleware('auth');
 Route::resource('seller', SellerController::class)->middleware('Seller');
-Route::resource('/category', CategoryController::class);
-Route::resource('/book', ProductController::class);
+Route::resource('/category', CategoryController::class)->middleware('Admin');
+Route::resource('/book', ProductController::class)->middleware('Seller');
 Route::resource('/customer', CustomerController::class);
 
-Route::get('public', function (){
-    return view('customer.index');
+Route::get('my', function (){
+    return view('CustomAuth.login');
 });
 
 Auth::routes();
@@ -36,6 +36,6 @@ Route::get('seller_login', function (){
     return view('seller.login');
 });
 
-Route::post('seller_login', [App\Http\Controllers\CustomAuth\SellerController::class, 'login'])->name('customer.login');
+Route::post('seller_login', [App\Http\Controllers\CustomAuth\AdminController::class, 'login'])->name('customer.login');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('customer')->middleware('Seller');

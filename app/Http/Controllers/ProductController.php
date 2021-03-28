@@ -5,22 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ProductController extends Controller
 {
 
     public function index()
     {
-        //
         $books = Product::all();
-
         return view('product.index', ['books' => $books]);
     }
 
 
     public function create()
     {
-        //
         $categoryList = Category::all();
         return view('product.create', ['category' => $categoryList]);
     }
@@ -28,9 +26,11 @@ class ProductController extends Controller
 
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        //
-
-        $this->validate($request, ['image' => 'required|image|mimes:jpeg,png,jpg|max:1080']);
+        try {
+            $this->validate($request, ['image' => 'required|image|mimes:jpeg,png,jpg|max:1080']);
+        } catch (ValidationException $e) {
+            return dd($e);
+        }
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $name = time().'.'.$image->getClientOriginalExtension();
@@ -60,37 +60,21 @@ class ProductController extends Controller
         return view('product.show', ['data' => Product::findOrFail($id)]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Product $product)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Product $product)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Product $product)
     {
-        //
+        Product::destroy($product->id);
+        return view('product.index')->with('delete', 'Delete Success');
     }
 }

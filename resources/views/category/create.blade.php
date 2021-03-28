@@ -9,7 +9,7 @@
 @section('body')
    <div class="w-50 border shadow p-5">
        @if(Session::has('message'))
-           <p class="alert">{{ Session::get('message') }}</p>
+           <p class="alert alert-success font-weight-bold">{{ Session::get('message') }}</p>
        @endif
            <a href="{{route('category.index')}}"> Category List </a>
        <form action="{{route('category.store')}}" method="POST">

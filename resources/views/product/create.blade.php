@@ -10,9 +10,9 @@
     <div class="w-50 border shadow p-5">
         <h3> Post a Book for sell <a href="{{route('book.index')}}" class="float-end">book list</a></h3>
         <hr>
-        @if(session('message'))
-            {{session('message')}}
-            @endif
+        @if(Session::has('message'))
+            <p class="alert alert-success font-weight-bold">{{ Session::get('message') }}</p>
+        @endif
 
         <form action="{{route('book.store')}}" method="post" enctype="multipart/form-data">
             @csrf
