@@ -25,6 +25,7 @@ Route::resource('seller', SellerController::class)->middleware('Seller');
 Route::resource('/category', CategoryController::class)->middleware('Admin');
 Route::resource('/book', ProductController::class)->middleware('Seller');
 Route::resource('/customer', CustomerController::class);
+Route::resource('/order', CustomerController::class)->middleware('auth');
 
 Route::get('my', function (){
     return view('CustomAuth.login');
