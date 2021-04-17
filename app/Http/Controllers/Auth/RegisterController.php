@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Seller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -47,7 +50,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
@@ -69,5 +72,27 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function createSeller(Request $request): RedirectResponse
+    {
+        $this->validator($request->all())->validate();
+        Seller::create([
+            'shop_name' => $request->input('shop_name'),
+            'proprietor_name' => $request->input('proprietor_name'),
+            'email' => $request->input('email'),
+            'mobile' => $request->input('mobile'),
+            'address' => $request->input('address'),
+            'password' => Hash::make($request->input('password')),
+        ]);
+        return redirect()->intended('seller/login');
+    }
+
+    public function showSellerRegisterForm()
+    {
+        return view('seller.login', ['url' => 'seller']);
     }
 }

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -39,21 +41,22 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function redirectTo(): string
+    /**
+     * @param
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function sellerLogin(Request $request): RedirectResponse
     {
-        $role = Auth::user()->permission;
-        switch ($role) {
-            case '1':
-                return '/admin_dashboard';
-                break;
-            case '2':
-                return '/seller_dashboard';
-                break;
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
 
-            default:
-                return '/home';
-                break;
+        if (Auth::guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $request->get('remember'))) {
+
+            return redirect()->intended('/seller');
         }
+        return back()->withInput($request->only('email', 'remember'));
     }
 
 
