@@ -1,48 +1,35 @@
-@extends('layouts.theme')
+@extends('layouts.guest')
 @section('title')
     {{ $data->book_name }}
 @endsection
-    @section('page_name')
-        {{ $data->book_name }}
-        @endsection
-@section('body')
-    <div>
-        <table class="table table-bordered table-sm w-50">
-            <tr>
-                <td>Name</td>
-                <td>{{ $data->book_name  }}</td>
-            </tr>
-            <tr>
-                <td>Publisher</td>
-                <td>{{ $data->publisher_name  }}</td>
-            </tr>
-            <tr>
-                <td>Writer</td>
-                <td>{{ $data->writer_name  }}</td>
-            </tr>
-            <tr>
-                <td>Stock</td>
-                <td>{{ $data->stock  }}</td>
-            </tr>
-            <tr>
-                <td>Price</td>
-                <td>{{ $data->price  }}</td>
-            </tr>
-            <tr>
-                <td>Category</td>
-                <td>{{ $data->category_id  }}</td>
-            </tr>
-            <tr>
-                <td>Details</td>
-                <td>{{ $data->description  }}</td>
-            </tr>
-            <tr>
-                <td>image</td>
-                <td>
-                    <img src="{{asset('images/'.$data->image)}}" alt="" style="width: 300px; height: 200px;">
-                   </td>
-            </tr>
 
-        </table>
+@section('content')
+    <div class="">
+        <div class="card" style="width: 600px">
+            <div class="card-header">
+                <img src="{{ asset('images/'.$data->image) }}" alt="Product Image">
+            </div>
+            <div class="card-body">
+                <div class="h3 card-title text-capitalize">{{ $data->book_name }}</div>
+                <p>by <span class="text-info h5 text-capitalize">{{ $data->writer_name }}</span></p>
+                <div class="card-text my-2">Category: <span class="fw-bold text-capitalize h6 px-1">{{$data->Category->category_name}}</span></div>
+                <span class="card-text" style="text-decoration: line-through;">TK. {{$data->price + 15}}</span>
+                <div class="card-text">
+                    <span class="h5"> Tk. {{$data->price}} </span> <span class="text-info">You Save Tk. 15 (10%)</span>
+                </div>
+                <div class="card-title my-3">
+                    @if(!$data->stock == 0)
+                        <i class="fa fa-check-circle text-success"></i> In stock
+                    @else
+                        <h4 class="text-danger">Out Of Stock</h4>
+                    @endif
+                </div>
+                <div class="card-text">
+                    <p>{{ $data->description }}</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="{{ route('customer.index') }}" class="btn btn-secondary my-3"> <i class="fa fa-arrow-left"></i> Go Back</a>
     </div>
 @endsection

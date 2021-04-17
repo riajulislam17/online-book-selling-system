@@ -23,7 +23,7 @@ Route::resource('/', CustomerController::class);
 Route::resource('/dashboard', DashboardController::class)->middleware('auth');
 Route::resource('seller', SellerController::class)->middleware('Seller');
 Route::resource('/category', CategoryController::class)->middleware('Admin');
-Route::resource('/book', ProductController::class)->middleware('Seller');
+Route::resource('/book', ProductController::class);
 Route::resource('/customer', CustomerController::class);
 Route::resource('/order', CustomerController::class)->middleware('auth');
 

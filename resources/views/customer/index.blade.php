@@ -7,53 +7,75 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Welcome To {{ config('app.name') }}</title>
 
-    <link rel="stylesheet" href="{{asset('bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css')}}">
-    <script type="text/javascript" href="{{asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.js')}}"></script>
+    <link rel="stylesheet" href="{{ asset('bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css' )}}">
+    <link rel="stylesheet" href="{{ asset('fa/css/all.min.css' )}}">
+    <script type="text/javascript" href="{{ asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.js' )}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
 
-    <script type="text/javascript" href="{{asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" href="{{ asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js' )}}"></script>
+    <style>
+        .custom-price{
+            font-size: 20px;
+            transition: font-size 1s;
+        }
+        .custom-price:hover{
+            font-size: 25px;
+        }
+        .custom-img{
+            transition: all 1s;
+
+        }
+        .custom-img:hover{
+
+            transform-style: preserve-3d;
+            transform: rotateY(20deg);
+
+        }
+        .base{
+            perspective-origin: left;
+        }
+    </style>
 </head>
 <body>
     <div class="">
-        <div class="">
-            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="http://placehold.it/750x150?text=1" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="http://placehold.it/750x150?text=2" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="http://placehold.it/750x150?text=3" class="d-block w-100" alt="...">
-                    </div>
+        <div class="bg-light border-bottom p-2">
+            <div class="container d-flex justify-content-between align-items-center">
+                <div class="h3">{{ config('app.name') }}</div>
+                <div class="">
+                   @auth
+                        <a href="{{route('customer.login')}}" class="text-decoration-none fw-bold">Profile</a>
+                    @endauth
+                   @guest
+                           <a href="{{route('customer.login')}}">Login</a>
+                   @endguest
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
         </div>
-        <div>
-            @if(!empty($products))
+        <div class="container">
+            @if(count($products) > 0)
                 <div class="d-flex justify-content-start">
                 @foreach($products as $item)
                     <div class="card m-3" style="width: 18rem;">
-                        <img class="card-img-top" style="width: auto; height: 250px;" src="{{asset('images/'.$item->image)}}" alt="Card image cap">
+                        <div class="base">
+                            <img class="card-img-top custom-img" style="height: 250px;"  src="{{asset('images/'.$item->image)}}" alt="Card image cap" onclick="window.location='{{ route('book.show', $item->id) }}'">
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title"> {{ $item->book_name  }} </h5>
-                            <b> {{ $item->price }} 	&#2547; </b>
-                            <p class="card-text"> {{ $item->description }}</p>
+                            <div class="card-title">
+                                <a href="{{ route('book.show', $item->id) }}" class="text-decoration-none text-capitalize text-success h4 fw-bold">{{ $item->book_name }}</a>
+                            </div>
+                            <div class="card-text">By <span class="text-info h4">{{ $item->writer_name  }}</span></div>
+                            <div class="fw-bold custom-price"> {{ $item->price }} &#2547; </div>
+                            <p class="card-text">Publisher: {{ $item->publisher_name  }}</p>
+                            @if(strlen($item->description) > 71)
+                                <p class="card-text bg-light"> {{ substr($item->description,0,70) }} ...</p>
+                            @else
+                                <p class="card-text"> {{ $item->description }}</p>
+                            @endif
                         </div>
                         <ul class="list-group list-group-flush">
-
-                            <li class="list-group-item"> By {{ $item->writer_name  }} </li>
-                            <li class="list-group-item"> {{ $item->publisher_name  }} </li>
-                            <li class="list-group-item">Post@ {{ date('d-m-y', strtotime($item->created_at))  }} </li>
+                            <li class="list-group-item">Post at {{ date('d-m-y', strtotime($item->created_at)) }}
+                                <small class="text-info">({{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }})</small>
+                            </li>
                         </ul>
                         <div class="card-body">
                             <a href="#" class="card-link">Buy Now</a>

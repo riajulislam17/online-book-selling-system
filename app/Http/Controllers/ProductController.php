@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class ProductController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth')->except(['index', 'show']);
+    }
 
     public function index()
     {
@@ -24,12 +28,12 @@ class ProductController extends Controller
     }
 
 
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         try {
             $this->validate($request, ['image' => 'required|image|mimes:jpeg,png,jpg|max:1080']);
         } catch (ValidationException $e) {
-            return dd($e);
+            return redirect()->route('book.create')->with('message', 'Image upload failed');
         }
         if ($request->hasFile('image')) {
             $image = $request->file('image');
