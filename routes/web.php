@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
@@ -36,6 +37,9 @@ Auth::routes();
 Route::get('seller_login', function (){
     return view('seller.login');
 });
+Route::get('auth/seller/register', [RegisterController::class, 'showSellerRegisterForm'])->name('auth.seller.register');
+Route::post('auth/seller/register', [RegisterController::class, 'createSeller'])->name('auth.seller.register');
+
 
 Route::post('seller_login', [App\Http\Controllers\CustomAuth\AdminController::class, 'login'])->name('customer.login');
 

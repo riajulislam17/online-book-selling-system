@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreateSellersTable extends Migration
 {
     /**
-     * Run the migrations.
-     *
+     * Run the migrations.     *
      * @return void
      */
     public function up()

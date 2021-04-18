@@ -42,6 +42,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+
     }
 
     /**
@@ -55,7 +56,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
     }
 
@@ -79,7 +80,15 @@ class RegisterController extends Controller
      */
     protected function createSeller(Request $request): RedirectResponse
     {
-        $this->validator($request->all())->validate();
+        //$this->validator($request->all())->validate();
+        $request->validate([
+           'shop_name' => 'required|min:3',
+           'proprietor_name' => 'required|min:5',
+           'email' => 'required|unique:sellers',
+           'mobile' => 'required|unique:sellers',
+           'address' => 'required|min:5',
+           'password' => 'required|string|confirmed'
+        ]);
         Seller::create([
             'shop_name' => $request->input('shop_name'),
             'proprietor_name' => $request->input('proprietor_name'),
@@ -93,6 +102,6 @@ class RegisterController extends Controller
 
     public function showSellerRegisterForm()
     {
-        return view('seller.login', ['url' => 'seller']);
+        return view('seller.register');
     }
 }
