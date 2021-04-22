@@ -39,10 +39,18 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->middleware('guest:seller')->except('logout');
+        $this->middleware('guest:customer')->except('logout');
+    }
+
+    public function showSellerLoginForm()
+    {
+        return view('seller.login');
     }
 
     /**
-     * @param
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
     public function sellerLogin(Request $request): RedirectResponse
@@ -52,11 +60,35 @@ class LoginController extends Controller
             'password' => 'required|min:6'
         ]);
 
-        if (Auth::guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $request->get('remember'))) {
+        if (Auth::guard('seller')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $request->get('remember'))) {
 
             return redirect()->intended('/seller');
         }
         return back()->withInput($request->only('email', 'remember'));
+    }
+
+    public function showCustomerLoginForm()
+    {
+        return view('customer.login');
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function customerLogin(Request $request): RedirectResponse
+    {
+        $this->validate($request, [
+            'mobile'   => 'required',
+            'password' => 'required|min:6'
+        ]);
+
+        if (Auth::guard('customer')->attempt(['mobile' => $request->input('mobile'), 'password' => $request->input('password')], $request->get('remember'))) {
+
+            return redirect()->intended('/customer');
+        }
+        return back()->withInput($request->only('mobile', 'remember'));
     }
 
 

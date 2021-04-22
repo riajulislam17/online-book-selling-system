@@ -42,6 +42,8 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        $this->middleware('guest:seller');
+        $this->middleware('guest:customer');
 
     }
 
@@ -76,7 +78,8 @@ class RegisterController extends Controller
     }
 
     /**
-     * @throws \Illuminate\Validation\ValidationException
+     * @param Request $request
+     * @return RedirectResponse
      */
     protected function createSeller(Request $request): RedirectResponse
     {
@@ -102,6 +105,10 @@ class RegisterController extends Controller
 
     public function showSellerRegisterForm()
     {
-        return view('seller.register');
+        return view('seller.register', ['url' => 'seller']);
+    }
+    public function showCustomerRegisterForm()
+    {
+        return view('customer.register', ['url' => 'customer']);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
@@ -20,27 +21,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/', CustomerController::class);
+Route::get('/', function (){
+    return redirect()->route('customer.index');
+});
 Route::resource('/dashboard', DashboardController::class)->middleware('auth');
-Route::resource('seller', SellerController::class)->middleware('Seller');
-Route::resource('/category', CategoryController::class)->middleware('Admin');
+Route::resource('seller', SellerController::class);
+Route::resource('/category', CategoryController::class);
 Route::resource('/book', ProductController::class);
 Route::resource('/customer', CustomerController::class);
-Route::resource('/order', CustomerController::class)->middleware('auth');
+Route::resource('/order', CustomerController::class);
 
-Route::get('my', function (){
-    return view('CustomAuth.login');
+Route::prefix('auth')->group(function (){
+    Route::get('seller/login', [LoginController::class, 'showSellerLoginForm']);
+    Route::get('customer/login', [LoginController::class, 'showCustomerLoginForm']);
+
+    Route::post('seller/login', [LoginController::class, 'sellerLogin']);
+    Route::post('customer/login', [LoginController::class, 'customerLogin']);
+
+    Route::get('seller/register', [RegisterController::class, 'showSellerRegisterForm']);
+    Route::get('customer/register', [RegisterController::class, 'showCustomerRegisterForm']);
+
+    Route::post('seller/register', [RegisterController::class, 'createSeller']);
+    //Route::post('customer/register', [RegisterController::class, 'customerLogin']);
+
+
 });
-
 Auth::routes();
-
-Route::get('seller_login', function (){
-    return view('seller.login');
-});
-Route::get('auth/seller/register', [RegisterController::class, 'showSellerRegisterForm'])->name('auth.seller.register');
-Route::post('auth/seller/register', [RegisterController::class, 'createSeller'])->name('auth.seller.register');
-
-
-Route::post('seller_login', [App\Http\Controllers\CustomAuth\AdminController::class, 'login'])->name('customer.login');
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('customer')->middleware('Seller');

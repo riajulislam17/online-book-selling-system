@@ -72,14 +72,18 @@
                                 <p class="card-text"> {{ $item->description }}</p>
                             @endif
                         </div>
-                        <ul class="list-group list-group-flush">
+                        {{--<ul class="list-group list-group-flush">
                             <li class="list-group-item">Post at {{ date('d-m-y', strtotime($item->created_at)) }}
                                 <small class="text-info">({{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }})</small>
                             </li>
-                        </ul>
+                        </ul>--}}
                         <div class="card-body">
-                            <a href="#" class="card-link">Buy Now</a>
-                            <a href="#" class="card-link">Add to Card</a>
+                            @if($item->stock == 0)
+                                <p class="alert alert-danger h5">Out of Stock</p>
+                            @else
+                                <a href="#" class="card-link">Buy Now</a>
+{{--                                <a href="#" class="card-link">Add to Card</a>--}}
+                            @endif
                         </div>
                     </div>
                 @endforeach

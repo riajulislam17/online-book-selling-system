@@ -7,7 +7,7 @@
     <div class="">
         <div class="card" style="width: 600px">
             <div class="card-header">
-                <img src="{{ asset('images/'.$data->image) }}" alt="Product Image">
+                <img src="{{ asset('images/'.$data->image) }}" alt="Product Image" style="width: 500px">
             </div>
             <div class="card-body">
                 <div class="h3 card-title text-capitalize">{{ $data->book_name }}</div>
