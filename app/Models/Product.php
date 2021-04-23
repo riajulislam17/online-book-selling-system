@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @method static findOrFail($id)
+ * @property mixed id
  */
 class Product extends Model
 {

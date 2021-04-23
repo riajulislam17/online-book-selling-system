@@ -79,28 +79,49 @@ class RegisterController extends Controller
 
     /**
      * @param Request $request
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function createSeller(Request $request): RedirectResponse
     {
-        //$this->validator($request->all())->validate();
-        $request->validate([
+     Seller::create([
+          'shop_name' => $request['shop_name'],
+          'proprietor_name' => $request['proprietor_name'],
+          'email' => $request['email'],
+          'mobile' => $request['mobile'],
+          'address' => $request['address'],
+          'password' => Hash::make($request['password'])
+      ]);
+
+
+/*        $attribute = $request->validate([
            'shop_name' => 'required|min:3',
            'proprietor_name' => 'required|min:5',
            'email' => 'required|unique:sellers',
            'mobile' => 'required|unique:sellers',
            'address' => 'required|min:5',
-           'password' => 'required|string|confirmed'
-        ]);
-        Seller::create([
+           'password' => 'required|confirmed'
+        ]);*/
+        //$data = $request->all();
+
+        /*$this->validate($request, [
+            'shop_name' => 'required|min:3',
+            'proprietor_name' => 'required|min:5',
+            'email' => 'required|unique:sellers',
+            'mobile' => 'required|unique:sellers',
+            'address' => 'required|min:5',
+            'password' => 'required|confirmed'
+        ]);*/
+        /*Seller::create([
             'shop_name' => $request->input('shop_name'),
             'proprietor_name' => $request->input('proprietor_name'),
             'email' => $request->input('email'),
             'mobile' => $request->input('mobile'),
             'address' => $request->input('address'),
             'password' => Hash::make($request->input('password')),
-        ]);
-        return redirect()->intended('seller/login');
+        ]);*/
+
+      //  Seller::create($attribute);
+        return redirect()->intended('auth/seller/login');
     }
 
     public function showSellerRegisterForm()

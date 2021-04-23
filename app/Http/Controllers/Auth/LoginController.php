@@ -45,7 +45,7 @@ class LoginController extends Controller
 
     public function showSellerLoginForm()
     {
-        return view('seller.login');
+        return view('seller.login', ['url' => 'login']);
     }
 
     /**
@@ -53,18 +53,19 @@ class LoginController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function sellerLogin(Request $request): RedirectResponse
+    public function sellerLogin(Request $request)
     {
-        $this->validate($request, [
+        $attributes = $this->validate($request, [
             'email'   => 'required|email',
             'password' => 'required|min:6'
         ]);
 
-        if (Auth::guard('seller')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $request->get('remember'))) {
+        if (Auth::guard('seller')->attempt($attributes)) {
 
-            return redirect()->intended('/seller');
+            return redirect()->intended('/ook');
         }
-        return back()->withInput($request->only('email', 'remember'));
+        return back()->withInput($request->only('email'))->with('message', 'Login Failed');
+
     }
 
     public function showCustomerLoginForm()

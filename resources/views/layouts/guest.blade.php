@@ -19,7 +19,7 @@
                   </h3>
                   <div class="">
                       @auth
-                          <a href="{{ route('customer.login') }}" class="text-decoration-none">  {{ Auth::user()->first_name }}</a>
+                            {{ Auth::user()->id }}
                       @endauth
                       @guest
                               <a href="{{ route('customer.login') }}">Login</a>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Seller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
@@ -11,7 +12,13 @@ use Illuminate\Validation\ValidationException;
 class ProductController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth')->except(['index', 'show']);
+        //$this->middleware('auth')->except([ 'show', 'home']);
+        $this->middleware('auth:seller')->except(['show', 'home']);
+    }
+
+    public function home()
+    {
+        return view('customer.index', ['products' => Product::all()->sortByDesc('id'), 'shops' => Seller::all()]);
     }
 
     public function index()
@@ -64,21 +71,37 @@ class ProductController extends Controller
         return view('product.show', ['data' => Product::findOrFail($id)]);
     }
 
-
-    public function edit(Product $product)
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param \App\Models\Product $product
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function edit($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('product.edit', ['product' => $product, 'category' => Category::all()]);
     }
 
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Product $product, $id)
     {
-        //
+        $attribute = $request->validate([
+            'book_name' => 'required',
+            'publisher_name' => 'required',
+            'writer_name' => 'required',
+            'stock' => 'required',
+            'price' => 'required',
+            'category_id' => 'required',
+        ]);
+        $product = Product::findOrFail($id);
+        $product->update($attribute);
+        return redirect()->route('book.edit', $id)->with('message', 'Update Success');
     }
 
 
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        Product::destroy($product->id);
-        return view('product.index')->with('delete', 'Delete Success');
+        Product::destroy($id);
+        return redirect()->route('book.index')->with('delete', 'Delete Success');
     }
 }

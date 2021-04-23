@@ -35,6 +35,7 @@
                         placeholder="Shop Name"
                         aria-label="ShopName"
                         value="{{ old('shop_name') }}"
+                        autofocus
                         aria-describedby="basic-addon1">
                     @error('shop_name')
                         <p class="alert alert-danger">{{ $message }}</p>
@@ -76,6 +77,22 @@
                 <div class="input-group mb-4">
                     <div class="input-group-prepend">
                    <span class="input-group-text">
+                       <i class="fa fa-mail-bulk p-1"></i>
+                   </span>
+                    </div>
+                    <input type="text" name="email"
+                           class="form-control @error('email') is-invalid @enderror"
+                           placeholder="Mobile Number (11 Digit)"
+                           value="{{ old('email') }}"
+                           aria-label="Mobile"
+                           aria-describedby="basic-addon3">
+                    @error('email')
+                    <p class="alert alert-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                   <span class="input-group-text">
                        <i class="fa fa-map-marked p-1"></i>
                    </span>
                     </div>
@@ -96,7 +113,10 @@
                    </span>
                     </div>
                     <label for="password" class="sr-only"></label>
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                    <input id="password" type="password"
+                           class="form-control @error('password') is-invalid @enderror"
+                           placeholder="Password"
+                           name="password" required autocomplete="new-password">
                     @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -105,10 +125,16 @@
                 </div><div class="input-group mb-4">
                     <div class="input-group-prepend">
                    <span class="input-group-text">
-                       <i class="fa fa-key p-1"></i>
+                       <label for="password-confirm">
+                           <i class="fa fa-key p-1"></i>
+                       </label>
                    </span>
                     </div>
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                    <input id="password-confirm"
+                           type="password"
+                           class="form-control"
+                           placeholder="Retype Password"
+                           name="password_confirmation" required autocomplete="new-password">
                 </div>
                 <div class="d-flex justify-content-center">
                     <button class="btn btn-success">Create Account <i class="fa fa-user-plus"></i></button>

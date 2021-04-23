@@ -43,15 +43,43 @@
                 <div class="h3">{{ config('app.name') }}</div>
                 <div class="">
                    @auth
-                        <a href="{{route('customer.login')}}" class="text-decoration-none fw-bold">Profile</a>
+                       Profile &middot;
+                        <a class="text-decoration-none" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                     @endauth
                    @guest
-                           <a href="{{route('customer.login')}}">Login</a>
+                          Login
                    @endguest
                 </div>
             </div>
         </div>
         <div class="container">
+            <div class="">
+                Check <br/>
+                @auth('seller')
+                    You ar seller <br>
+                @endauth
+                @auth
+                    You ar Login <br>
+                @endauth
+            </div>
+            @if(count($shops) > 0)
+                @foreach($shops as $shop)
+                    <div class="">
+                       <i class="fa fa-shopping-basket"></i> {{ $shop->shop_name }}
+                    </div>
+                @endforeach
+
+            @else
+                <p class="alert alert-danger">No Shop Found</p>
+            @endif
             @if(count($products) > 0)
                 <div class="d-flex justify-content-start">
                 @foreach($products as $item)
@@ -89,7 +117,6 @@
                 @endforeach
                 </div>
             @endif
-
         </div>
         <div>
 

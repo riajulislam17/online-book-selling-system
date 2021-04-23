@@ -17,7 +17,7 @@
                    <p class="alert alert-success font-weight-bold">{{ Session::get('message') }}</p>
                @endif
            </div>
-           <form action="{{route('customer.login')}}" method="post">
+           <form action="{{route('auth.seller.login')}}" method="post">
                @csrf
                <div class="border shadow p-5">
                    <div class="border-bottom font-weight-bold text-center h3 bg-light mb-4">
@@ -29,8 +29,17 @@
                        <i class="fa fa-user p-1"></i>
                    </span>
                        </div>
-                       <input type="text" name="email" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                       <input type="text"
+                              name="email"
+                              class="form-control @error('email') is-invalid @enderror"
+                              placeholder="email"
+                              aria-label="email"
+                              value="{{ old('email') }}"
+                              aria-describedby="basic-email">
                    </div>
+                       @error('email')
+                       <small class="fw-bold text-danger">{{ $message }}</small>
+                       @enderror
 
                    <div class="input-group mb-4">
                        <div class="input-group-prepend">
@@ -38,8 +47,16 @@
                        <i class="fa fa-key p-1"></i>
                    </span>
                        </div>
-                       <input type="password" name="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon2">
+                       <input type="password"
+                              name="password"
+                              class="form-control @error('password') is-invalid @enderror"
+                              placeholder="Password"
+                              aria-label="Password"
+                              aria-describedby="basic-addon2">
                    </div>
+                       @error('email')
+                       <small class="fw-bold text-danger">{{ $message }}</small>
+                       @enderror
                    <div class="d-flex justify-content-center">
                        <button class="btn btn-success w-25">Login</button>
                    </div>

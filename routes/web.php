@@ -21,29 +21,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function (){
-    return redirect()->route('customer.index');
-});
-Route::resource('/dashboard', DashboardController::class)->middleware('auth');
+Route::get('/', [ProductController::class, 'home']);
+Route::resource('dashboard', DashboardController::class);
 Route::resource('seller', SellerController::class);
-Route::resource('/category', CategoryController::class);
-Route::resource('/book', ProductController::class);
-Route::resource('/customer', CustomerController::class);
-Route::resource('/order', CustomerController::class);
+Route::resource('category', CategoryController::class);
+Route::resource('book', ProductController::class);
+Route::resource('customer', CustomerController::class);
+Route::resource('order', CustomerController::class);
 
 Route::prefix('auth')->group(function (){
     Route::get('seller/login', [LoginController::class, 'showSellerLoginForm']);
     Route::get('customer/login', [LoginController::class, 'showCustomerLoginForm']);
 
-    Route::post('seller/login', [LoginController::class, 'sellerLogin']);
-    Route::post('customer/login', [LoginController::class, 'customerLogin']);
+    Route::post('seller/login', [LoginController::class, 'sellerLogin'])->name('auth.seller.login');
+    Route::post('customer/login', [LoginController::class, 'customerLogin'])->name('auth.customer.login');
 
-    Route::get('seller/register', [RegisterController::class, 'showSellerRegisterForm']);
-    Route::get('customer/register', [RegisterController::class, 'showCustomerRegisterForm']);
+    Route::get('seller/register', [RegisterController::class, 'showSellerRegisterForm'])->name('auth.seller.register');
+    Route::get('customer/register', [RegisterController::class, 'showCustomerRegisterForm'])->name('auth.customer.register');
 
-    Route::post('seller/register', [RegisterController::class, 'createSeller']);
+    Route::post('seller/register', [RegisterController::class, 'createSeller'])->name('auth.seller.register');
     //Route::post('customer/register', [RegisterController::class, 'customerLogin']);
 
 
 });
 Auth::routes();
+
+Route::get('/ook', function (){
+    return array(
+        'stats' => true
+    );
+})->middleware('auth:seller');

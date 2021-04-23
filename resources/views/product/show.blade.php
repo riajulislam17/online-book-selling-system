@@ -30,6 +30,6 @@
             </div>
         </div>
 
-        <a href="{{ route('customer.index') }}" class="btn btn-secondary my-3"> <i class="fa fa-arrow-left"></i> Go Back</a>
+        <a href="{{ route('book.index') }}" class="btn btn-secondary my-3"> <i class="fa fa-arrow-left"></i> Go Back</a>
     </div>
 @endsection
