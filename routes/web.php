@@ -40,7 +40,7 @@ Route::prefix('auth')->group(function (){
     Route::get('customer/register', [RegisterController::class, 'showCustomerRegisterForm'])->name('auth.customer.register');
 
     Route::post('seller/register', [RegisterController::class, 'createSeller'])->name('auth.seller.register');
-    //Route::post('customer/register', [RegisterController::class, 'customerLogin']);
+    Route::post('customer/register', [RegisterController::class, 'customerRegister'])->name('auth.customer.register');
 
 
 });

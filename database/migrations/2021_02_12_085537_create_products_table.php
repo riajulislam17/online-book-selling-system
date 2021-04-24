@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->integer('category_id');
             $table->text('image');
             $table->text('description');
+            $table->unsignedBigInteger('seller_id');
             $table->timestamps();
         });
     }

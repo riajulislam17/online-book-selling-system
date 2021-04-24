@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\Seller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -131,5 +132,34 @@ class RegisterController extends Controller
     public function showCustomerRegisterForm()
     {
         return view('customer.register', ['url' => 'customer']);
+    }
+
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function customerRegister(Request $request)
+    {
+        $attribute = Validator::make($request->all(), [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'mobile' => 'required|unique:customers',
+            'email' => 'required|unique:customers',
+            'address' => 'required',
+            'password' => 'required|confirmed'
+        ]);
+       if($attribute->validate()){
+           Customer::create([
+               'first_name' => $request->input('first_name'),
+               'last_name' => $request->input('last_name'),
+               'mobile' => $request->input('mobile'),
+               'email' => $request->input('email'),
+               'address' => $request->input('address'),
+               'password' => Hash::make($request->input('password'))
+           ]);
+           return redirect()->intended('auth/customer/login');
+       }else{
+           //return back()->withInput($request->only(['first_name', 'last_name', 'mobile', 'address']))->with('');
+           return view('customer.register');
+       }
     }
 }

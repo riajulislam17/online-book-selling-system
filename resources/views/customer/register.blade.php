@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="{{ asset('bootstrap-5.0.0-beta1-dist/css/bootstrap.css') }}" rel="stylesheet"/>
     <link href="{{ asset('fa/css/all.css') }}" rel="stylesheet"/>
-    <title>Login Page</title>
+    <title>Registration Page</title>
 </head>
 <body>
 <div class="d-flex justify-content-center flex-column" style="min-height: 100vh">
@@ -17,26 +17,26 @@
                 <p class="alert alert-success font-weight-bold">{{ Session::get('message') }}</p>
             @endif
         </div>
-        <form action="{{route('auth.seller.register')}}" method="post">
+        <form action="{{route('auth.customer.register')}}" method="post">
             @csrf
             <div class="border shadow p-5">
                 <div class="border-bottom fw-bold text-center h3 bg-light mb-4 py-3">
-                    Seller Registration Form
+                    Customer Registration Form
                 </div>
                 <div class="input-group mb-4">
                     <div class="input-group-prepend">
                        <span class="input-group-text">
-                           <i class="fas fa-store p-1"></i>
+                           <i class="fas fa-user p-1"></i>
                        </span>
                     </div>
                     <input
-                        type="text" name="shop_name"
-                        class="form-control @error('shop_name') is-invalid @enderror"
-                        placeholder="Shop Name"
-                        aria-label="ShopName"
-                        value="{{ old('shop_name') }}"
+                        type="text" name="first_name"
+                        class="form-control @error('first_name') is-invalid @enderror"
+                        placeholder="First Name"
+                        aria-label="FirstName"
+                        value="{{ old('first_name') }}"
                         aria-describedby="basic-addon1">
-                    @error('shop_name')
+                    @error('first_name')
                         <p class="alert alert-danger">{{ $message }}</p>
                     @enderror
                 </div>
@@ -47,13 +47,13 @@
                        </span>
                     </div>
                     <input type="text"
-                           name="proprietor_name"
-                           class="form-control  @error('proprietor_name') is-invalid @enderror"
-                           placeholder="Proprietor Name"
-                           value="{{ old('proprietor_name') }}"
+                           name="last_name"
+                           class="form-control  @error('last_name') is-invalid @enderror"
+                           placeholder="Last Name"
+                           value="{{ old('last_name') }}"
                            aria-label="ProprietorName"
-                           aria-describedby="basic-addon2">
-                    @error('proprietor_name')
+                           aria-describedby="last-name">
+                    @error('last_name')
                     <p class="alert alert-danger">{{ $message }}</p>
                     @enderror
                 </div>
@@ -70,6 +70,23 @@
                            aria-label="Mobile"
                            aria-describedby="basic-addon3">
                     @error('mobile')
+                    <p class="alert alert-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                   <span class="input-group-text">
+                       <i class="fa fa-mail-bulk p-1"></i>
+                   </span>
+                    </div>
+                    <input type="text"
+                           name="email"
+                           class="form-control @error('email') is-invalid @enderror"
+                           placeholder="Email Address"
+                           value="{{ old('email') }}"
+                           aria-label="Email"
+                           aria-describedby="email-address">
+                    @error('email')
                     <p class="alert alert-danger">{{ $message }}</p>
                     @enderror
                 </div>
@@ -102,7 +119,8 @@
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
-                </div><div class="input-group mb-4">
+                </div>
+                <div class="input-group mb-4">
                     <div class="input-group-prepend">
                    <span class="input-group-text">
                        <i class="fa fa-key p-1"></i>

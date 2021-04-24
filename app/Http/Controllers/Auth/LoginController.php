@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -75,21 +76,11 @@ class LoginController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @return void
      */
-    public function customerLogin(Request $request): RedirectResponse
+    public function customerLogin(Request $request)
     {
-        $this->validate($request, [
-            'mobile'   => 'required',
-            'password' => 'required|min:6'
-        ]);
-
-        if (Auth::guard('customer')->attempt(['mobile' => $request->input('mobile'), 'password' => $request->input('password')], $request->get('remember'))) {
-
-            return redirect()->intended('/customer');
-        }
-        return back()->withInput($request->only('mobile', 'remember'));
+        var_dump($request->all());
     }
 
 

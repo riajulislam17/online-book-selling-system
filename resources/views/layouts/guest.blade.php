@@ -18,11 +18,8 @@
                       <a href="{{ route('customer.index') }}" class="text-decoration-none">{{ config('app.name') }}</a>
                   </h3>
                   <div class="">
-                      @auth
-                            {{ Auth::user()->id }}
-                      @endauth
                       @guest
-                              <a href="{{ route('customer.login') }}">Login</a>
+                              Login
                       @endguest
                   </div>
               </div>

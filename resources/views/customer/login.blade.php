@@ -14,31 +14,33 @@
        <div class="w-25 mx-auto">
            <div class="border shadow p-5">
                <div class="border-bottom font-weight-bold text-center h3 bg-light mb-4">
-                   Login
+                   Customer Login
                </div>
-               <div class="input-group mb-4">
-                   <div class="input-group-prepend">
+               <form action="{{ route('auth.customer.login') }}" method="post">
+                   @csrf
+                   <div class="input-group mb-4">
+                       <div class="input-group-prepend">
                    <span class="input-group-text">
                        <i class="fa fa-user p-1"></i>
                    </span>
+                       </div>
+                       <input type="text" name="mobile" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                    </div>
-                   <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-               </div>
 
-               <div class="input-group mb-4">
-                   <div class="input-group-prepend">
+                   <div class="input-group mb-4">
+                       <div class="input-group-prepend">
                    <span class="input-group-text">
                        <i class="fa fa-key p-1"></i>
                    </span>
+                       </div>
+                       <input type="password" name="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
                    </div>
-                   <input type="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
-               </div>
-               <div class="d-flex justify-content-center">
-                   <button class="btn btn-success w-25">Login</button>
-               </div>
+                   <div class="d-flex justify-content-center">
+                       <button type="submit" class="btn btn-success w-25">Login</button>
+                   </div>
+               </form>
 
            </div>
-
        </div>
     </div>
 </body>

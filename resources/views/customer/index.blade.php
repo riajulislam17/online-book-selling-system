@@ -42,21 +42,26 @@
             <div class="container d-flex justify-content-between align-items-center">
                 <div class="h3">{{ config('app.name') }}</div>
                 <div class="">
-                   @auth
-                       Profile &middot;
-                        <a class="text-decoration-none" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
+                    @if(Auth::guard('seller')->check())
+                           Hello,   <b>{{ Auth::guard('seller')->user()->proprietor_name }}</b>
+                            &middot;
+                           <a class="text-decoration-none" href="{{ route('logout') }}"
+                              onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
+                               {{ __('Logout') }}
+                           </a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    @endauth
-                   @guest
-                          Login
-                   @endguest
+                           <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                               @csrf
+                           </form>
+                       @elseif(Auth::guard('customer')->check())
+                           Hello, <b>{{ Auth::guard('seller')->user()->name }}</b>
+                       @elseif(Auth::check())
+                        hello, unknown
+                       @else
+                           <b>Guest</b> &middot; <a href="{{ route('login') }}">Login</a>
+
+                   @endif
                 </div>
             </div>
         </div>
@@ -91,9 +96,9 @@
                             <div class="card-title">
                                 <a href="{{ route('book.show', $item->id) }}" class="text-decoration-none text-capitalize text-success h4 fw-bold">{{ $item->book_name }}</a>
                             </div>
-                            <div class="card-text">By <span class="text-info h4">{{ $item->writer_name  }}</span></div>
+                            <div class="card-text">By <span class="text-info h5">{{ $item->writer_name  }}</span></div>
                             <div class="fw-bold custom-price"> {{ $item->price }} &#2547; </div>
-                            <p class="card-text">Publisher: {{ $item->publisher_name  }}</p>
+{{--                            <p class="card-text">Publisher: {{ $item->publisher_name  }}</p>--}}
                             @if(strlen($item->description) > 71)
                                 <p class="card-text bg-light"> {{ substr($item->description,0,70) }} ...</p>
                             @else
@@ -112,6 +117,18 @@
                                 <a href="#" class="card-link">Buy Now</a>
 {{--                                <a href="#" class="card-link">Add to Card</a>--}}
                             @endif
+                            @auth('seller')
+                                <div class="d-flex justify-content-between">
+                                    <a href="{{ route('book.edit', $item->id) }}">Edit</a>
+                                    <a href="{{ route('book.destroy', $item->id) }}"
+                                       onclick="bookDelete()"
+                                    >Delete</a>
+                                    <form id="delete_product" action="{{ route('book.destroy', $item->id) }}" method="POST" class="sr-only">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                </div>
+                            @endauth
                         </div>
                     </div>
                 @endforeach
@@ -126,6 +143,16 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
 
     <script type="text/javascript" href="{{asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js')}}"></script>
+    <script>
+        let bookDelete = () => {
+            let deleteForm = document.getElementById('delete_product');
+            event.preventDefault();
+             if(confirm('Do you really want to submit the form?')){
+                 deleteForm.submit();
+             }
+
+        }
+    </script>
 </body>
 
 </html>
