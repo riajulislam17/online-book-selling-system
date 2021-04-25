@@ -25,6 +25,11 @@ class CategoryController extends Controller
         $category = new Category;
         $category->category_name = $request->category_name;
         $category->save();
+        $attribute = $request->validate([
+            'category_name' => 'required',
+            'image' => 'nullable|mimes:jpg,png,jpeg|max:2048'
+        ]);
+
         return redirect()->route('category.create')->with('message', 'Create Success');
     }
 
