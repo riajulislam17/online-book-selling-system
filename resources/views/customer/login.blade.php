@@ -25,6 +25,9 @@
                <div class="border-bottom font-weight-bold text-center h3 bg-light mb-4">
                    Customer Login
                </div>
+               @if(Session::has('message'))
+                   <p class="alert alert-info fw-bold">{{Session::get('message')}}</p>
+               @endif
                <form action="{{ route('auth.customer.login') }}" method="post">
                    @csrf
                    <div class="input-group mb-4">

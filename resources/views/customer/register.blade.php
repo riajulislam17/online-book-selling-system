@@ -113,7 +113,13 @@
                    </span>
                     </div>
                     <label for="password" class="sr-only"></label>
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                    <input id="password"
+                           type="password"
+                           class="form-control @error('password') is-invalid @enderror"
+                           placeholder="Password"
+                           name="password"
+                           required
+                           autocomplete="new-password">
                     @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -123,10 +129,19 @@
                 <div class="input-group mb-4">
                     <div class="input-group-prepend">
                    <span class="input-group-text">
-                       <i class="fa fa-key p-1"></i>
+                       <label for="password-confirm">
+                           <i class="fa fa-key p-1"></i>
+                       </label>
                    </span>
                     </div>
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                    <input
+                        id="password-confirm"
+                        type="password"
+                        class="form-control"
+                        placeholder="Retype Password"
+                        name="password_confirmation"
+                        required
+                        autocomplete="new-password">
                 </div>
                 <div class="d-flex justify-content-center flex-column align-items-center">
                     <button class="btn btn-success">Create Account <i class="fa fa-user-plus"></i></button>

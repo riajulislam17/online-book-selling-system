@@ -82,7 +82,7 @@
                     </div>
                     <input type="text" name="email"
                            class="form-control @error('email') is-invalid @enderror"
-                           placeholder="Mobile Number (11 Digit)"
+                           placeholder="Email Address"
                            value="{{ old('email') }}"
                            aria-label="Mobile"
                            aria-describedby="basic-addon3">

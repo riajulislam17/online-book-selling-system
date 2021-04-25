@@ -13,7 +13,7 @@
 </head>
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand" href="{{route('dashboard.index')}}"> {{config('app.name')}} </a>
+    <a class="navbar-brand" href="{{route('homePage')}}"> {{config('app.name')}} </a>
     <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
     <!-- Navbar Search-->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -29,19 +29,35 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">Settings</a>
-                <a class="dropdown-item" href="#">Profile</a>
-                <div class="dropdown-divider"></div>
-                @auth
+                @if(Auth::guard('seller')->check())
+                    <a class="dropdown-item" href="{{ route('seller.profile') }}">Profile</a>
+                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                @endauth
+                @elseif(Auth::guard('customer')->check())
+                    <a class="dropdown-item" href="{{ route('customer.profile') }}">Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+                @else
+                    <a class="dropdown-item" href="#">Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+                @endif
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </div>
         </li>
     </ul>
@@ -52,7 +68,7 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">Core</div>
-                    <a class="nav-link" href="{{route('dashboard.index')}}">
+                    <a class="nav-link" href="{{route('homePage')}}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
@@ -127,14 +143,16 @@
                 </div>
             </div>
             <div class="sb-sidenav-footer">
-                @auth
+                @if(Auth::guard('seller')->check())
+                    <div class="small">Logged in as:</div>
+                    {{ Auth::guard('seller')->user()->proprietor_name }}
+                @elseif(Auth::guard('customer')->check())
+                    <div class="small">Logged in as:</div>
+                    {{ Auth::guard('customer')->user()->first_name }}
+                @elseif(Auth::user()->check())
                     <div class="small">Logged in as:</div>
                     {{ Auth::user()->first_name }}
-                @endauth
-                @guest
-                    <div class="small">Logged in as:</div>
-                   Guest
-                @endguest
+                @endif
             </div>
         </nav>
     </div>

@@ -12,6 +12,11 @@ class DashboardController extends Controller
         return view('dashboard');
     }
 
+    public function sellerDashboard()
+    {
+        return view('seller.dashboard', );
+    }
+
     public function create()
     {
         //

@@ -6,14 +6,20 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Welcome To {{ config('app.name') }}</title>
-
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Kurale&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css' )}}">
     <link rel="stylesheet" href="{{ asset('fa/css/all.min.css' )}}">
+    <script type="text/javascript" href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
     <script type="text/javascript" href="{{ asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.js' )}}"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
 
     <script type="text/javascript" href="{{ asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js' )}}"></script>
     <style>
+        *{
+            font-family: 'Kurale', serif;
+        }
         .custom-price{
             font-size: 20px;
             transition: font-size 1s;
@@ -38,12 +44,31 @@
 </head>
 <body>
     <div class="">
-        <div class="bg-light border-bottom p-2">
+        <div class="bg-light border-bottom p-2 py-3">
             <div class="container d-flex justify-content-between align-items-center">
-                <div class="h3">Book Stall</div>
+
+                <div class="h3 text-info fw-bold">Book Stall</div>
+
+                <div class="w-50">
+                   <div class="input-group">
+                       <input type="text"
+                              class="form-control"
+                              aria-label="search"
+                              placeholder="Search something"
+                              aria-describedby="search">
+                       <div class="input-group-prepend">
+                           <div class="input-group-text" id="search">
+                               <i class="fa fa-search p-1"></i>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+
                 <div class="">
                     @if(Auth::guard('seller')->check())
-                           Hello,   <b>{{ Auth::guard('seller')->user()->proprietor_name }}</b>
+                           Hello,   <a href="{{ route('seller.profile') }}" class="text-decoration-none" title="Profile">
+                            {{ Auth::guard('seller')->user()->proprietor_name }}
+                        </a>
                             &middot;
                            <a class="text-decoration-none" href="{{ route('logout') }}"
                               onclick="event.preventDefault();
@@ -55,7 +80,7 @@
                                @csrf
                            </form>
                        @elseif(Auth::guard('customer')->check())
-                           Hello, <b>{{ Auth::guard('customer')->user()->first_name }}</b>
+                           Hello, <a href="{{ route('customer.profile') }}" title="Profile" class="text-decoration-none">{{ Auth::guard('customer')->user()->first_name }}</a>
                         &middot;
                         <a class="text-decoration-none" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
@@ -73,6 +98,19 @@
 
                    @endif
                 </div>
+               <div>
+                   <div class="dropdown">
+                       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                           Dropdown link
+                       </a>
+
+                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                           <li><a class="dropdown-item" href="#">Action</a></li>
+                           <li><a class="dropdown-item" href="#">Another action</a></li>
+                           <li><a class="dropdown-item" href="#">Something else here</a></li>
+                       </ul>
+                   </div>
+               </div>
             </div>
         </div>
         <div class="container">
@@ -149,10 +187,14 @@
 
         </div>
     </div>
+    <script type="text/javascript" href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
     <script type="text/javascript" href="{{asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
 
     <script type="text/javascript" href="{{asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js')}}"></script>
+
+
+    <script type="text/javascript" href="{{ asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.js' )}}"></script>
     <script>
         let bookDelete = () => {
             let deleteForm = document.getElementById('delete_product');

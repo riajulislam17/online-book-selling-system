@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 
 /**
  * @method static create(array $array)
+ * @method static findOrFail(int|string|null $id)
  */
 class Seller extends Authenticatable
 {

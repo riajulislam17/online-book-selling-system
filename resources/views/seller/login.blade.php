@@ -65,8 +65,9 @@
                        @error('email')
                        <small class="fw-bold text-danger">{{ $message }}</small>
                        @enderror
-                   <div class="d-flex justify-content-center">
+                   <div class="d-flex justify-content-center flex-column align-items-center">
                        <button class="btn btn-success w-25">Login</button>
+                       <a href="{{ route('auth.seller.register') }}" class="mt-3">Register</a>
                    </div>
 
                </div>

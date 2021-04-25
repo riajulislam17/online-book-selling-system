@@ -54,7 +54,7 @@ class LoginController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function sellerLogin(Request $request)
+    public function sellerLogin(Request $request): RedirectResponse
     {
         $attributes = $this->validate($request, [
             'email'   => 'required|email',
@@ -76,11 +76,20 @@ class LoginController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @return void
+     * @return RedirectResponse
      */
-    public function customerLogin(Request $request)
+    public function customerLogin(Request $request): RedirectResponse
     {
-        var_dump($request->all());
+        //var_dump($request->all());
+        $attributes = $request->validate(array(
+            'mobile' => 'required|max:11|min:11',
+            'password' => 'required|string'
+        ));
+
+        if (Auth::guard('customer')->attempt($attributes)){
+            return redirect()->intended('/');
+        }
+        return back()->withInput($request->only(['mobile']))->with('message', 'Login Failed');
     }
 
 

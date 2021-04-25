@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 /**
  * @method static create(array $all)
+ * @method static findOrFail(int|string|null $id)
  */
 class Customer extends Authenticatable
 {

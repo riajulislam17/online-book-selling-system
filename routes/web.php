@@ -21,12 +21,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ProductController::class, 'home']);
-Route::resource('dashboard', DashboardController::class); //CRUD
-Route::resource('seller', SellerController::class);
+Route::get('/', [ProductController::class, 'home'])->name('homePage');
 Route::resource('category', CategoryController::class);
 Route::resource('book', ProductController::class);
-Route::resource('customer', CustomerController::class);
 Route::resource('order', CustomerController::class);
 
 Route::prefix('auth')->group(function (){
@@ -45,8 +42,19 @@ Route::prefix('auth')->group(function (){
 });
 
 Route::prefix('seller')->group(function (){
-    Route::get('Dashboard', [SellerController::class, 'dashboard']);
+    Route::get('dashboard', [SellerController::class, 'dashboard'])->name('seller.dashboard');
+    Route::get('profile', [SellerController::class, 'profile'])->name('seller.profile');
+    Route::get('profile/edit', [SellerController::class, 'showProfileEdit'])->name('seller.profile.edit');
+    Route::patch('profile/edit/{seller}', [SellerController::class, 'profileUpdate'])->name('seller.profile.update');
 });
+
+
+Route::prefix('customer')->group(function (){
+    Route::get('dashboard', [CustomerController::class, 'dashboard'])->name('customer.dashboard');
+    Route::get('profile', [CustomerController::class, 'profile'])->name('customer.profile');
+});
+
+
 
 Auth::routes();
 

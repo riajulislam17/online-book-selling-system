@@ -2,31 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\Seller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SellerController extends Controller
 {
     public function dashboard()
     {
-        //return view('seller.dashboard');
-        return redirect()->route('book.index');
+        return view('seller.dashboard', ['books' => Product::all()->where('seller_id', '=', Auth::guard('seller')->id())]);
     }
 
-    public function index()
+    public function profile()
     {
-        return view('seller.dashboard');
+        return view('seller.profile', ['profileInfo' => Seller::findOrFail(Auth::guard('seller')->id())]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function showProfileEdit()
     {
-        //
+        return view('seller.editProfile', ['profileInfo' => Seller::findOrFail(Auth::guard('seller')->id())]);
     }
-
+    public function profileUpdate(Request $request, Seller $seller): RedirectResponse
+    {
+        $attributes = $request->validate([
+           'shop_name' => 'required',
+           'proprietor_name' => 'required',
+           'email' => 'required',
+           'mobile' => 'required'
+        ]);
+        $seller->update($attributes);
+        return redirect()->route('seller.profile')->with('message', 'Profile Update Success');
+    }
     /**
      * Store a newly created resource in storage.
      *
