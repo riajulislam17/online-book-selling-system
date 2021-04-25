@@ -8,6 +8,7 @@ use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -59,6 +60,7 @@ class ProductController extends Controller
         $product->category_id =  $request->category_id;
         $product->image =  $name;
         $product->description =  $request->description;
+        $product->seller_id = Auth::id();
         $product->save();
 
         return redirect()->route('book.create')->with('message', 'Post Create Success');

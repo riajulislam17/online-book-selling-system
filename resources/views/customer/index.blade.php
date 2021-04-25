@@ -40,7 +40,7 @@
     <div class="">
         <div class="bg-light border-bottom p-2">
             <div class="container d-flex justify-content-between align-items-center">
-                <div class="h3">{{ config('app.name') }}</div>
+                <div class="h3">Book Stall</div>
                 <div class="">
                     @if(Auth::guard('seller')->check())
                            Hello,   <b>{{ Auth::guard('seller')->user()->proprietor_name }}</b>
@@ -55,11 +55,21 @@
                                @csrf
                            </form>
                        @elseif(Auth::guard('customer')->check())
-                           Hello, <b>{{ Auth::guard('seller')->user()->name }}</b>
+                           Hello, <b>{{ Auth::guard('customer')->user()->first_name }}</b>
+                        &middot;
+                        <a class="text-decoration-none" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                        @elseif(Auth::check())
                         hello, unknown
                        @else
-                           <b>Guest</b> &middot; <a href="{{ route('login') }}">Login</a>
+                           <b>Guest</b> &middot; <a href="{{ route('auth.customer.login') }}">Login</a>
 
                    @endif
                 </div>

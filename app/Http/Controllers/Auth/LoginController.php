@@ -63,7 +63,7 @@ class LoginController extends Controller
 
         if (Auth::guard('seller')->attempt($attributes)) {
 
-            return redirect()->intended('/ook');
+            return redirect()->intended('/seller/dashboard');
         }
         return back()->withInput($request->only('email'))->with('message', 'Login Failed');
 

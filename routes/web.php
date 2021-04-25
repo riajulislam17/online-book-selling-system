@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [ProductController::class, 'home']);
-Route::resource('dashboard', DashboardController::class);
+Route::resource('dashboard', DashboardController::class); //CRUD
 Route::resource('seller', SellerController::class);
 Route::resource('category', CategoryController::class);
 Route::resource('book', ProductController::class);
@@ -42,8 +42,12 @@ Route::prefix('auth')->group(function (){
     Route::post('seller/register', [RegisterController::class, 'createSeller'])->name('auth.seller.register');
     Route::post('customer/register', [RegisterController::class, 'customerRegister'])->name('auth.customer.register');
 
-
 });
+
+Route::prefix('seller')->group(function (){
+    Route::get('Dashboard', [SellerController::class, 'dashboard']);
+});
+
 Auth::routes();
 
 Route::get('/ook', function (){

@@ -12,7 +12,16 @@
 <body>
     <div class="d-flex justify-content-center flex-column" style="min-height: 100vh">
        <div class="w-25 mx-auto">
+           <ul class="nav nav-tabs">
+               <li class="nav-item w-50">
+                   <a class="nav-link active fw-bold" aria-current="page" href="{{ route('auth.customer.login') }}">Customer</a>
+               </li>
+               <li class="nav-item w-50">
+                   <a class="nav-link" href="{{ route('auth.seller.login') }}">Seller</a>
+               </li>
+           </ul>
            <div class="border shadow p-5">
+
                <div class="border-bottom font-weight-bold text-center h3 bg-light mb-4">
                    Customer Login
                </div>
@@ -35,9 +44,12 @@
                        </div>
                        <input type="password" name="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
                    </div>
-                   <div class="d-flex justify-content-center">
-                       <button type="submit" class="btn btn-success w-25">Login</button>
+                   <div class="d-flex justify-content-center flex-column align-items-center">
+                       <button type="submit" class="btn btn-success w-25">Login <i class="fa fa-sign-in"></i></button>
+
+                       <a href="{{ route('auth.customer.register') }}" class="mt-3">Register Now</a>
                    </div>
+
                </form>
 
            </div>

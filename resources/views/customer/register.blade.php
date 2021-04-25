@@ -128,8 +128,9 @@
                     </div>
                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                 </div>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center flex-column align-items-center">
                     <button class="btn btn-success">Create Account <i class="fa fa-user-plus"></i></button>
+                    <a href="{{ route('auth.customer.login') }}" class="mt-3">Login Now</a>
                 </div>
             </div>
         </form>

@@ -29,15 +29,15 @@
                     <td> {{ $item->id  }} </td>
                     <td>
                         <a href="{{ route('book.show', $item->id) }}" class="text-decoration-none text-capitalize">{{ $item->book_name  }}</a>
-                        <a href="{{ route('book.edit', $item->id) }}" class="float-right">
-                            <i class="fa fa-edit"></i>
-                        </a>
                     </td>
                     <td> {{ $item->publisher_name  }} </td>
                     <td> {{ $item->writer_name  }} </td>
                     <td> {{ $item->stock  }} </td>
                     <td> {{ $item->price  }} </td>
                     <td>
+                        <a href="{{ route('book.edit', $item->id) }}" class="float-right">
+                            <i class="fa fa-edit"></i>
+                        </a>
                         <form action="{{route('book.destroy', $item->id)}}" method="post" onsubmit="return confirm('Do you really want to submit the form?');">
                             @csrf
                             @method('DELETE')
