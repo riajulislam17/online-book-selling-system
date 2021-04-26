@@ -3,15 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:seller');
+    }
 
     public function index()
     {
-        $result = Category::all();
-        return view('category.index', ["result" => $result]);
+        return view('category.create', ['categories' => Category::all()]);
     }
 
     public function create()
@@ -22,13 +28,19 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $category = new Category;
-        $category->category_name = $request->category_name;
-        $category->save();
         $attribute = $request->validate([
             'category_name' => 'required',
             'image' => 'nullable|mimes:jpg,png,jpeg|max:2048'
         ]);
+        if ($request->hasFile('image'))
+        {
+            $imageName = 'category_' . time() .  "." . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+            $attribute['image'] = $imageName;
+        }else{
+            $attribute['image'] = '';
+        }
+        Category::create($attribute);
 
         return redirect()->route('category.create')->with('message', 'Create Success');
     }
@@ -70,11 +82,23 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Category $category
+     * @return RedirectResponse
+     * @throws \Exception
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category): RedirectResponse
     {
-        //
+       $products = Product::all()->where('category_id', '=', $category->id);
+       $images = array();
+       $ids = array();
+       foreach ($products as $product){
+           array_push($images, public_path('images/'.$product->image));
+           File::delete(public_path('images/'.$product->image));
+           array_push($ids, $product->id);
+       }
+        Product::destroy($ids);
+        File::delete(public_path('images/'.$category->image));
+        $category->delete();
+        return redirect()->route('category.create')->with('message', 'Delete Success');
     }
 }

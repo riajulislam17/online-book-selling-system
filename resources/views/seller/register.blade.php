@@ -17,7 +17,7 @@
                 <p class="alert alert-success font-weight-bold">{{ Session::get('message') }}</p>
             @endif
         </div>
-        <form action="{{route('auth.seller.register')}}" method="post">
+        <form action="{{route('auth.seller.register')}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="border shadow p-5">
                 <div class="border-bottom fw-bold text-center h3 bg-light mb-4 py-3">
@@ -92,11 +92,12 @@
                 </div>
                 <div class="input-group mb-4">
                     <div class="input-group-prepend">
-                   <span class="input-group-text">
-                       <i class="fa fa-map-marked p-1"></i>
-                   </span>
+                       <span class="input-group-text">
+                           <i class="fa fa-map-marked p-1"></i>
+                       </span>
                     </div>
-                    <input type="text" name="address"
+                    <input type="text"
+                           name="address"
                            class="form-control @error('address') is-invalid @enderror"
                            placeholder="Address (Road no, Police Station, District)"
                            value="{{ old('address') }}"
@@ -106,6 +107,24 @@
                         <p class="alert alert-danger">{{ $message }}</p>
                     @enderror
                 </div>
+
+                <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file"
+                               name="shop_image"
+                               class="custom-file-input @error('address') is-invalid @enderror"
+                               id="shop_image"
+                               value="{{ old('shop_imaage') }}">
+                        <label for="shop_image" class="custom-file-label">Choose File ...</label>
+                    </div>
+                    @error('shop_imaage')
+                        <p class="alert alert-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <div class="input-group mb-4">
                     <div class="input-group-prepend">
                    <span class="input-group-text">
@@ -113,7 +132,8 @@
                    </span>
                     </div>
                     <label for="password" class="sr-only"></label>
-                    <input id="password" type="password"
+                    <input id="password"
+                           type="password"
                            class="form-control @error('password') is-invalid @enderror"
                            placeholder="Password"
                            name="password" required autocomplete="new-password">
@@ -122,7 +142,8 @@
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
-                </div><div class="input-group mb-4">
+                </div>
+                <div class="input-group mb-4">
                     <div class="input-group-prepend">
                    <span class="input-group-text">
                        <label for="password-confirm">

@@ -10,12 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Kurale&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css' )}}">
     <link rel="stylesheet" href="{{ asset('fa/css/all.min.css' )}}">
-    <script type="text/javascript" href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-    <script type="text/javascript" href="{{ asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.js' )}}"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
-
-    <script type="text/javascript" href="{{ asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js' )}}"></script>
+    <script src="{{ asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.min.js') }}"></script>
     <style>
         *{
             font-family: 'Kurale', serif;
@@ -46,9 +41,7 @@
     <div class="">
         <div class="bg-light border-bottom p-2 py-3">
             <div class="container d-flex justify-content-between align-items-center">
-
                 <div class="h3 text-info fw-bold">Book Stall</div>
-
                 <div class="w-50">
                    <div class="input-group">
                        <input type="text"
@@ -64,56 +57,116 @@
                    </div>
                 </div>
 
-                <div class="">
-                    @if(Auth::guard('seller')->check())
-                           Hello,   <a href="{{ route('seller.profile') }}" class="text-decoration-none" title="Profile">
-                            {{ Auth::guard('seller')->user()->proprietor_name }}
-                        </a>
-                            &middot;
-                           <a class="text-decoration-none" href="{{ route('logout') }}"
-                              onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                               {{ __('Logout') }}
-                           </a>
-
-                           <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                               @csrf
-                           </form>
-                       @elseif(Auth::guard('customer')->check())
-                           Hello, <a href="{{ route('customer.profile') }}" title="Profile" class="text-decoration-none">{{ Auth::guard('customer')->user()->first_name }}</a>
-                        &middot;
-                        <a class="text-decoration-none" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                       @elseif(Auth::check())
-                        hello, unknown
-                       @else
-                           <b>Guest</b> &middot; <a href="{{ route('auth.customer.login') }}">Login</a>
-
-                   @endif
-                </div>
                <div>
                    <div class="dropdown">
-                       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                           Dropdown link
+                       <a class="dropdown-toggle text-decoration-none"
+                          href="#" role="button"
+                          id="dropdownMenuLink"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                           <i class="fa fa-user"></i>
                        </a>
-
                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                           <li><a class="dropdown-item" href="#">Action</a></li>
-                           <li><a class="dropdown-item" href="#">Another action</a></li>
-                           <li><a class="dropdown-item" href="#">Something else here</a></li>
+                           @if(Auth::guard('seller')->check())
+                                <li>
+                                    <a href="{{ route('seller.profile') }}" class="text-decoration-none dropdown-item" title="Profile">
+                                        {{ Auth::guard('seller')->user()->proprietor_name }} (profile)
+                                    </a>
+                                </li>
+                               <li>
+                                   <a class="text-decoration-none dropdown-item" href="{{ route('logout') }}"
+                                      onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                       {{ __('Logout') }}
+                                   </a>
+                               </li>
+                               <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                   @csrf
+                               </form>
+                           @elseif(Auth::guard('customer')->check())
+                               <li>
+                                   <a href="{{ route('customer.profile') }}" title="Profile" class="text-decoration-none dropdown-item">
+                                       {{ Auth::guard('customer')->user()->first_name }}
+                                   </a>
+                               </li>
+                               <li>
+                                   <a class="text-decoration-none dropdown-item" href="{{ route('logout') }}"
+                                      onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                       {{ __('Logout') }}
+                                   </a>
+                               </li>
+
+                               <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                   @csrf
+                               </form>
+                           @elseif(Auth::check())
+                               <li>
+                                   <a class="text-decoration-none" href="{{ route('logout') }}"
+                                      onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                       {{ __('Logout') }}
+                                   </a>
+                               </li>
+
+                               <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                   @csrf
+                               </form>
+                           @else
+                              <li>
+                                  <a href="{{ route('auth.customer.register') }}" class="dropdown-item">Sign Up</a>
+                              </li>
+                              <li>
+                                  <a href="{{ route('auth.customer.login') }}" class="dropdown-item">Sign In</a>
+                              </li>
+
+                           @endif
                        </ul>
                    </div>
                </div>
             </div>
         </div>
+        <div class="">
+            <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="10000">
+                        <img src="{{ asset('siteImage/bgLogin.jpg') }}" style="height: 30vh;" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>First slide label</h5>
+                            <p>Some representative placeholder content for the first slide.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="2000">
+                        <img src="{{ asset('siteImage/bgLogin.jpg') }}" style="height: 30vh;" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Second slide label</h5>
+                            <p>Some representative placeholder content for the second slide.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset('siteImage/bgLogin.jpg') }}" style="height: 30vh;" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Third slide label</h5>
+                            <p>Some representative placeholder content for the third slide.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="container">
+
+            {{--body--}}
+            {{--slider--}}
+            <div class="">
+
+            </div>
+
+
             <div class="">
                 Check <br/>
                 @auth('seller')
@@ -187,14 +240,7 @@
 
         </div>
     </div>
-    <script type="text/javascript" href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-    <script type="text/javascript" href="{{asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
 
-    <script type="text/javascript" href="{{asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js')}}"></script>
-
-
-    <script type="text/javascript" href="{{ asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.js' )}}"></script>
     <script>
         let bookDelete = () => {
             let deleteForm = document.getElementById('delete_product');

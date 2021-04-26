@@ -19,6 +19,7 @@ class CreateSellersTable extends Migration
             $table->string('email');
             $table->string('mobile');
             $table->string('address');
+            $table->string('shop_image');
             $table->string('password');
             $table->boolean('account_status')->default(false);
             $table->rememberToken();

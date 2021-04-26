@@ -16,7 +16,7 @@ class Seller extends Authenticatable
     protected $guard = 'seller';
 
     protected $fillable = [
-        'shop_name', 'proprietor_name', 'email','mobile', 'address', 'password'
+        'shop_name', 'proprietor_name', 'email','mobile', 'address', 'shop_image', 'password'
     ];
 
     protected $hidden = [

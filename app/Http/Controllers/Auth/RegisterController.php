@@ -84,44 +84,38 @@ class RegisterController extends Controller
      */
     protected function createSeller(Request $request): RedirectResponse
     {
-     Seller::create([
-          'shop_name' => $request['shop_name'],
-          'proprietor_name' => $request['proprietor_name'],
-          'email' => $request['email'],
-          'mobile' => $request['mobile'],
-          'address' => $request['address'],
-          'password' => Hash::make($request['password'])
-      ]);
-
-
-/*        $attribute = $request->validate([
-           'shop_name' => 'required|min:3',
-           'proprietor_name' => 'required|min:5',
-           'email' => 'required|unique:sellers',
-           'mobile' => 'required|unique:sellers',
-           'address' => 'required|min:5',
-           'password' => 'required|confirmed'
-        ]);*/
-        //$data = $request->all();
-
-        /*$this->validate($request, [
+        $validationRules = array(
             'shop_name' => 'required|min:3',
             'proprietor_name' => 'required|min:5',
             'email' => 'required|unique:sellers',
             'mobile' => 'required|unique:sellers',
             'address' => 'required|min:5',
+            'shop_image' => 'nullable|max:2048|mimes:jpg,jpeg,png',
             'password' => 'required|confirmed'
-        ]);*/
-        /*Seller::create([
+        );
+        $attributes = array(
             'shop_name' => $request->input('shop_name'),
             'proprietor_name' => $request->input('proprietor_name'),
             'email' => $request->input('email'),
             'mobile' => $request->input('mobile'),
             'address' => $request->input('address'),
+            'shop_image' => $request->input('shop_image'),
             'password' => Hash::make($request->input('password')),
-        ]);*/
+        );
 
-      //  Seller::create($attribute);
+        $validator = Validator::make($request->all(),$validationRules);
+
+        if (!$validator->fails()){
+            if ($request->hasFile('shop_image')){
+                $imageName = 'shop_image_'. time() . '.'. $request->shop_image->extension();
+                $request->shop_image->move(public_path('images'), $imageName);
+                $attributes['shop_image'] = 'images/'.$imageName;
+            }else{
+                $attributes['shop_image'] = '';
+            }
+            Seller::create($attributes);
+        }
+
         return redirect()->intended('auth/seller/login');
     }
 
