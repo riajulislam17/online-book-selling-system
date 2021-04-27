@@ -7,7 +7,7 @@
                 <div class="col-md-2 bg-light border py-2">
                     <div class="d-flex flex-column">
                         <img src="{{ asset('siteImage/img.png') }}" alt="">
-                        <p class="text-center my-3">Md Abdullah <i class="fa fa-check-circle text-success"></i> </p>
+                        <p class="text-center my-3"> {{$profileInfo->first_name}} {{$profileInfo->last_name}} <i class="fa fa-check-circle text-success"></i> </p>
                         <div class="">
                             <p class="border border-info p-2"> <i class="fa fa-user"></i> Basic Information </p>
                             <p class="p-2"> <i class="fa fa-list"></i> Order List </p>
@@ -27,7 +27,7 @@
                             <hr>
                             <table class="table table-borderless table-sm">
                                 <tr>
-                                    <td>Fast Name</td>
+                                    <td>First Name</td>
                                     <td>{{$profileInfo->first_name}} {{$profileInfo->last_name}}</td>
                                 </tr>
                                 <tr>
@@ -49,7 +49,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Member Science</td>
+                                    <td>Member Since</td>
                                     <td>{{ date('d-M-Y', strtotime($profileInfo->created_at)) }}</td>
                                 </tr>
                             </table>
