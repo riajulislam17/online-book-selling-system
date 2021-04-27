@@ -11,7 +11,6 @@ ORDER
                 <p> {{ Session::get('message') }}</p>
             @endif
         </div>
-        {{$product}}
         <table class="table table-borderless table-sm">
             <tr>
                 <td>Name</td>
