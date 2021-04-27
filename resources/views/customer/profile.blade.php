@@ -14,12 +14,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8 ml-3">
                     <div class="d-flex flex-row">
                         <i class="fa fa-info-circle mr-3" style="font-size: 60px; color: #0ecd8b"></i>
                         <div class="w-100" >
-                            <div class="h3 text-info text-uppercase">
-                                personal information
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="h3 text-info text-uppercase">personal information</span>
+                                <a href="{{ route('customer.profile') }}">
+                                    <i class="fa fa-edit"></i>
+                                </a>
                             </div>
                             <hr>
                             <table class="table table-borderless table-sm">
@@ -42,13 +45,51 @@
                                 <tr>
                                     <td>Address</td>
                                     <td>
-                                       {{ $profileInfo->address }}
+                                        {{ $profileInfo->address }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Member Science</td>
                                     <td>{{ date('d-M-Y', strtotime($profileInfo->created_at)) }}</td>
                                 </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-row mt-4">
+                        <i class="fa fa-list mr-3" style="font-size: 55px; color: #0ecd8b"></i>
+                        <div class="w-100" >
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="h3 text-info text-uppercase">Order List</span>
+                            </div>
+                            <hr>
+                            <table class="table table-bordered table-sm">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Product</th>
+                                    <th>Shop</th>
+                                    <th>Price</th>
+                                    <th>Total Price</th>
+                                    <th>Getaway</th>
+                                    <th>Time</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($orders as $order)
+                                    <tr>
+                                        <td>{{ $order->id }}</td>
+                                        <td>{{ $order->product->book_name }}</td>
+                                        <td>{{ $order->seller['shop_name'] }}</td>
+                                        <td>{{ $order->product_price }}</td>
+                                        <td>{{ $order->total_price }}</td>
+                                        <td>{{ $order->getaway }}</td>
+                                        <td>{{ date('d-M-Y', strtotime($order->created_at))  }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
                             </table>
                         </div>
                     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +16,15 @@ class CustomerController extends Controller
      */
     public function profile()
     {
-        return view('customer.profile', ['profileInfo' => Customer::findOrFail(Auth::guard('customer')->id())]);
+        $customerId = Auth::guard('customer')->id();
+        $customerInfo = Customer::findOrFail($customerId);
+        $orders = order::all()->where('customer_id', '=', $customerId);
+        return view('customer.profile', ['profileInfo' => $customerInfo, 'orders' => $orders]);
+    }
+
+    public function showProfileEdit()
+    {
+        return view('product.edit', ['profileInfo' => Customer::findOrFail(Auth::guard('customer')->id())]);
     }
 
     /**

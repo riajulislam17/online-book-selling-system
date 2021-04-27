@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @method static findOrFail($id)
  * @property mixed id
+ * @property mixed seller_id
+ * @property mixed price
  */
 class Product extends Model
 {

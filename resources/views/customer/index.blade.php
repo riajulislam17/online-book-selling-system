@@ -162,30 +162,20 @@
 
             {{--body--}}
             {{--slider--}}
-            <div class="">
 
-            </div>
-
-
-            <div class="">
-                Check <br/>
-                @auth('seller')
-                    You ar seller <br>
-                @endauth
-                @auth
-                    You ar Login <br>
-                @endauth
-            </div>
+           {{--
             @if(count($shops) > 0)
                 @foreach($shops as $shop)
                     <div class="">
                        <i class="fa fa-shopping-basket"></i> {{ $shop->shop_name }}
                     </div>
                 @endforeach
-
             @else
                 <p class="alert alert-danger">No Shop Found</p>
             @endif
+            --}}
+
+            <div class="h3 mt-4 p-3 bg-light">New Arrival ---</div>
             @if(count($products) > 0)
                 <div class="d-flex justify-content-start">
                 @foreach($products as $item)
@@ -215,7 +205,7 @@
                             @if($item->stock == 0)
                                 <p class="alert alert-danger h5">Out of Stock</p>
                             @else
-                                <a href="#" class="card-link">Buy Now</a>
+                                <a href="{{ route('order.create', $item->id) }}" class="card-link">Buy Now</a>
 {{--                                <a href="#" class="card-link">Add to Card</a>--}}
                             @endif
                             @auth('seller')

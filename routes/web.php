@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SellerController;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ProductController::class, 'home'])->name('homePage');
 Route::resource('category', CategoryController::class);
 Route::resource('book', ProductController::class);
-Route::resource('order', CustomerController::class);
 
 Route::prefix('auth')->group(function (){
     Route::get('seller/login', [LoginController::class, 'showSellerLoginForm']);
@@ -52,6 +52,14 @@ Route::prefix('seller')->group(function (){
 Route::prefix('customer')->group(function (){
     Route::get('dashboard', [CustomerController::class, 'dashboard'])->name('customer.dashboard');
     Route::get('profile', [CustomerController::class, 'profile'])->name('customer.profile');
+    Route::get('profile/edit', [CustomerController::class, 'showProfileEdit'])->name('seller.profile.edit');
+    Route::patch('profile/edit/{customer}', [CustomerController::class, 'profileUpdate'])->name('customer.profile.update');
+});
+
+
+Route::prefix('order')->group(function (){
+    Route::get('create/{product}', [OrderController::class, 'create'])->name('order.create');
+    Route::post('store/{product}', [OrderController::class, 'store'])->name('order.store');
 });
 
 
