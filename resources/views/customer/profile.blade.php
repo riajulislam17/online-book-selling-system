@@ -53,8 +53,6 @@
                                     <td>{{ date('d-M-Y', strtotime($profileInfo->created_at)) }}</td>
                                 </tr>
                             </table>
-
-
                         </div>
                     </div>
 
