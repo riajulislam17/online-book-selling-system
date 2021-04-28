@@ -163,21 +163,35 @@
             {{--body--}}
             {{--slider--}}
 
-           {{--
             @if(count($shops) > 0)
-                @foreach($shops as $shop)
-                    <div class="">
-                       <i class="fa fa-shopping-basket"></i> {{ $shop->shop_name }}
-                    </div>
-                @endforeach
+                <div class="h3 mt-4 p-3 bg-light">
+                    Brows by shop
+                </div>
+                <div class="d-flex flex-wrap">
+                    @foreach($shops as $shop)
+                        <div class="card m-3" style="width: 18rem;">
+                            <div class="card-header">
+                                @if(strlen($shop->shop_image) > 0)
+                                    <img class="card-img-top custom-img" style="height: 250px;"  src="{{ asset($shop->shop_image) }}" alt="Shop Image">
+                                @else
+                                    <img class="card-img-top custom-img" style="height: 250px;"  src="{{ asset('siteImage/shop_default_image.png') }}" alt="">
+                                @endif
+                            </div>
+                            <div class="card-body">
+                                <div class="h4 fw-bold">
+                                    {{ $shop->shop_name }}
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             @else
                 <p class="alert alert-danger">No Shop Found</p>
             @endif
-            --}}
 
             <div class="h3 mt-4 p-3 bg-light">New Arrival ---</div>
             @if(count($products) > 0)
-                <div class="d-flex justify-content-start">
+                <div class="d-flex flex-wrap">
                 @foreach($products as $item)
                     <div class="card m-3" style="width: 18rem;">
                         <div class="base">
@@ -202,18 +216,19 @@
                             </li>
                         </ul>--}}
                         <div class="card-body">
-                            @if($item->stock == 0)
-                                <p class="alert alert-danger h5">Out of Stock</p>
-                            @else
-                                <a href="{{ route('order.create', $item->id) }}" class="card-link">Buy Now</a>
-{{--                                <a href="#" class="card-link">Add to Card</a>--}}
-                            @endif
+                            @auth('customer')
+                                @if($item->stock == 0)
+                                    <p class="alert alert-danger h5">Out of Stock</p>
+                                @else
+                                    <a href="{{ route('order.create', $item->id) }}" class="card-link">Buy Now</a>
+                                @endif
+                            @endauth
                             @auth('seller')
                                 <div class="d-flex justify-content-between">
-                                    <a href="{{ route('book.edit', $item->id) }}">Edit</a>
-                                    <a href="{{ route('book.destroy', $item->id) }}"
+                                    <a href="{{ route('book.edit', $item->id) }}" class="btn btn-secondary"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ route('book.destroy', $item->id) }}" class="btn btn-danger"
                                        onclick="bookDelete()"
-                                    >Delete</a>
+                                    > <i class="fa fa-trash"></i></a>
                                     <form id="delete_product" action="{{ route('book.destroy', $item->id) }}" method="POST" class="sr-only">
                                         @csrf
                                         @method('DELETE')

@@ -52,7 +52,7 @@
                                <form onsubmit="return confirm('All Product under this category will be deleted...')" action="{{ route('category.destroy', $key->id) }}" method="POST">
                                    @csrf
                                    @method('DELETE')
-                                   <button type="submit">Delete</button>
+                                   <button class="btn" type="submit"><i class="fa fa-trash"></i></button>
                                </form>
                            </td>
                        </tr>
