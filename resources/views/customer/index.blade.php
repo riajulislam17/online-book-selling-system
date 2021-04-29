@@ -216,13 +216,13 @@
                             </li>
                         </ul>--}}
                         <div class="card-body">
-                            @auth('customer')
-                                @if($item->stock == 0)
-                                    <p class="alert alert-danger h5">Out of Stock</p>
-                                @else
-                                    <a href="{{ route('order.create', $item->id) }}" class="card-link">Buy Now</a>
-                                @endif
-                            @endauth
+
+                            @if($item->stock == 0)
+                                <p class="alert alert-danger h5">Out of Stock</p>
+                            @else
+                                <a href="{{ route('order.create', $item->id) }}" class="card-link">Buy Now</a>
+                            @endif
+
                             @auth('seller')
                                 <div class="d-flex justify-content-between">
                                     <a href="{{ route('book.edit', $item->id) }}" class="btn btn-secondary"><i class="fa fa-edit"></i></a>

@@ -14,15 +14,17 @@
        <div class="w-25 mx-auto">
            <ul class="nav nav-tabs">
                <li class="nav-item w-50">
-                   <a class="nav-link active fw-bold" aria-current="page" href="{{ route('auth.customer.login') }}">Customer</a>
+                   <a class="nav-link active fw-bold text-center"
+                      aria-current="page"
+                      href="{{ route('auth.customer.login') }}">Customer</a>
                </li>
                <li class="nav-item w-50">
-                   <a class="nav-link" href="{{ route('auth.seller.login') }}">Seller</a>
+                   <a class="nav-link text-center fw-bold" href="{{ route('auth.seller.login') }}">Seller</a>
                </li>
            </ul>
            <div class="border shadow p-5">
 
-               <div class="border-bottom font-weight-bold text-center h3 bg-light mb-4">
+               <div class="border-bottom font-weight-bold text-center h3 bg-light mb-4 py-2">
                    Customer Login
                </div>
                @if(Session::has('message'))
@@ -33,10 +35,19 @@
                    <div class="input-group mb-4">
                        <div class="input-group-prepend">
                    <span class="input-group-text">
-                       <i class="fa fa-user p-1"></i>
+                       <i class="fa fa-mobile p-1"></i>
                    </span>
                        </div>
-                       <input type="text" name="mobile" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                       <input type="text"
+                              name="mobile"
+                              class="form-control @error('mobile') is-invalid @enderror"
+                              placeholder="Mobile Number"
+                              aria-label="mobile"
+                              autocomplete="off"
+                              aria-describedby="User-name">
+                       @error('mobile')
+                        <p class="fw-bold text-danger">{{ $message }}</p>
+                       @enderror
                    </div>
 
                    <div class="input-group mb-4">
@@ -45,7 +56,15 @@
                        <i class="fa fa-key p-1"></i>
                    </span>
                        </div>
-                       <input type="password" name="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+                       <input type="password"
+                              name="password"
+                              class="form-control @error('password') is-invalid @enderror"
+                              placeholder="Password"
+                              aria-label="Password"
+                              aria-describedby="Password">
+                       @error('password')
+                        <p class="fw-bold text-danger"> {{ $message }} </p>
+                       @enderror
                    </div>
                    <div class="d-flex justify-content-center flex-column align-items-center">
                        <button type="submit" class="btn btn-success w-25">Login <i class="fa fa-sign-in"></i></button>

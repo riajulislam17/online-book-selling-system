@@ -1,5 +1,7 @@
 @extends('layouts.theme')
-
+@section('title')
+    {{$profileInfo->first_name}}
+@endsection
 @section('body')
     <div class="row m-0 p-0">
         <div class="col-md-10 mx-auto">
@@ -20,7 +22,7 @@
                         <div class="w-100" >
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="h3 text-info text-uppercase">personal information</span>
-                                <a href="{{ route('customer.profile') }}">
+                                <a href="{{ route('customer.profile.edit') }}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </div>

@@ -24,7 +24,21 @@ class CustomerController extends Controller
 
     public function showProfileEdit()
     {
-        return view('product.edit', ['profileInfo' => Customer::findOrFail(Auth::guard('customer')->id())]);
+        return view('customer.editProfile', ['profileInfo' => Customer::findOrFail(Auth::guard('customer')->id())]);
+    }
+
+    public function profileUpdate(Request $request, Customer $customer): \Illuminate\Http\RedirectResponse
+    {
+        $attributes = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'mobile' => 'required|max:11|min:11',
+            'address' => 'required'
+        ]);
+        $customer->update($attributes);
+        $request->session()->flash('message', 'Profile Update Success');
+        return redirect()->route('customer.profile');
     }
 
     /**

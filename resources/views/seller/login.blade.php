@@ -14,23 +14,21 @@
        <div class="w-25 mx-auto">
            <ul class="nav nav-tabs">
                <li class="nav-item w-50">
-                   <a class="nav-link" href="{{ route('auth.customer.login') }}">Customer</a>
+                   <a class="nav-link fw-bold text-center" href="{{ route('auth.customer.login') }}">Customer</a>
                </li>
                <li class="nav-item w-50">
-                   <a class="nav-link active fw-bold" aria-current="page" href="{{ route('auth.seller.login') }}">Seller</a>
+                   <a class="nav-link active fw-bold text-center" aria-current="page" href="{{ route('auth.seller.login') }}">Seller</a>
                </li>
            </ul>
-           <div class="">
-               @if(Session::has('message'))
-                   <p class="alert alert-success font-weight-bold">{{ Session::get('message') }}</p>
-               @endif
-           </div>
            <form action="{{route('auth.seller.login')}}" method="post">
                @csrf
                <div class="border shadow p-5">
                    <div class="border-bottom font-weight-bold text-center h3 bg-light mb-4">
-                       Login
+                       Seller Login
                    </div>
+                   @if(Session::has('message'))
+                       <p class="alert alert-success font-weight-bold">{{ Session::get('message') }}</p>
+                   @endif
                    <div class="input-group mb-4">
                        <div class="input-group-prepend">
                    <span class="input-group-text">
@@ -43,7 +41,7 @@
                               placeholder="email"
                               aria-label="email"
                               value="{{ old('email') }}"
-                              aria-describedby="basic-email">
+                              aria-describedby="email">
                    </div>
                        @error('email')
                        <small class="fw-bold text-danger">{{ $message }}</small>
@@ -60,13 +58,13 @@
                               class="form-control @error('password') is-invalid @enderror"
                               placeholder="Password"
                               aria-label="Password"
-                              aria-describedby="basic-addon2">
+                              aria-describedby="basic-Password">
                    </div>
-                       @error('email')
+                       @error('password')
                        <small class="fw-bold text-danger">{{ $message }}</small>
                        @enderror
                    <div class="d-flex justify-content-center flex-column align-items-center">
-                       <button class="btn btn-success w-25">Login</button>
+                       <button class="btn btn-success w-25">Login <i class="fa fa-sign-in"></i></button>
                        <a href="{{ route('auth.seller.register') }}" class="mt-3">Register</a>
                    </div>
 

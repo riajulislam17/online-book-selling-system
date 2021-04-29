@@ -1,5 +1,7 @@
 @extends('layouts.theme')
-
+@section('title')
+    Edit Profile
+@endsection
 @section('body')
     <div class="row m-0 p-0">
         <div class="col-md-10 mx-auto">
@@ -22,34 +24,51 @@
                                 personal information
                             </div>
                             <hr>
-                            <table class="table table-borderless table-sm">
-                                <tr>
-                                    <td>Fast Name</td>
-                                    <td>{{$profileInfo->first_name}} {{$profileInfo->last_name}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Email</td>
-                                    <td>
-                                        <a class="text-decoration-none" href="mailto:{{$profileInfo->email}}">{{$profileInfo->email}}</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Mobile</td>
-                                    <td>
-                                        <a class="text-decoration-none" href="tel:{{$profileInfo->mobile}}">{{$profileInfo->mobile}}</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Address</td>
-                                    <td>
-                                       {{ $profileInfo->address }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Member Science</td>
-                                    <td>{{ date('d-M-Y', strtotime($profileInfo->created_at)) }}</td>
-                                </tr>
-                            </table>
+                            <form action="{{ route('customer.profile.update', $profileInfo->id) }}" method="POST">
+                                @csrf
+                                @method('patch')
+                                <table class="table table-borderless table-sm">
+                                    <tr>
+                                        <td>Fast Name</td>
+                                        <td>
+                                            <input type="text" class="form-control" name="first_name" id="first_name" aria-label="first_name" value="{{$profileInfo->first_name}}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Name</td>
+                                        <td>
+                                            <input type="text"  class="form-control" name="last_name" id="last_name" aria-label="last_name" value="{{$profileInfo->last_name}}">
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td>
+                                            <input type="text"  class="form-control" name="email" aria-label="email" id="email" value="{{$profileInfo->email}}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mobile</td>
+                                        <td>
+                                            <input type="text" class="form-control" name="mobile" id="mobile" value="{{$profileInfo->mobile}}" aria-label="mobile">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address</td>
+                                        <td>
+                                            <input type="text" class="form-control" name="address" id="address" aria-label="address" value=" {{ $profileInfo->address }}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Member Science</td>
+                                        <td>{{ date('d-M-Y', strtotime($profileInfo->created_at)) }}</td>
+                                    </tr>
+                                </table>
+                                <div class="d-flex justify-content-center py-3">
+                                    <a href="{{ route('customer.profile') }}" class="btn btn-danger mx-3">Close <i class="fa fa-times"></i></a>
+                                    <button type="submit" class="btn btn-secondary">Update <i class="fa fa-save"></i></button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

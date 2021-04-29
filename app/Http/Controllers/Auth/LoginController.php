@@ -80,7 +80,6 @@ class LoginController extends Controller
      */
     public function customerLogin(Request $request): RedirectResponse
     {
-        //var_dump($request->all());
         $attributes = $request->validate(array(
             'mobile' => 'required|max:11|min:11',
             'password' => 'required|string'

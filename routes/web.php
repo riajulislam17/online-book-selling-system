@@ -52,7 +52,7 @@ Route::prefix('seller')->group(function (){
 Route::prefix('customer')->group(function (){
     Route::get('dashboard', [CustomerController::class, 'dashboard'])->name('customer.dashboard');
     Route::get('profile', [CustomerController::class, 'profile'])->name('customer.profile');
-    Route::get('profile/edit', [CustomerController::class, 'showProfileEdit'])->name('seller.profile.edit');
+    Route::get('profile/edit', [CustomerController::class, 'showProfileEdit'])->name('customer.profile.edit');
     Route::patch('profile/edit/{customer}', [CustomerController::class, 'profileUpdate'])->name('customer.profile.update');
 });
 
