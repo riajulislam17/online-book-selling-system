@@ -30,7 +30,7 @@
                    </div>
                </div>
            </div>
-           <a href="{{ route('book.index') }}" class="btn btn-secondary my-3"> <i class="fa fa-arrow-left"></i> Go Back</a>
+           <a href="{{ route('product.index') }}" class="btn btn-secondary my-3"> <i class="fa fa-arrow-left"></i> Go Back</a>
        </div>
     </div>
 @endsection

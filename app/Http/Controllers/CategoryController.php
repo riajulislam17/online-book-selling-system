@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
@@ -32,6 +33,7 @@ class CategoryController extends Controller
             'category_name' => 'required',
             'image' => 'nullable|mimes:jpg,png,jpeg|max:2048'
         ]);
+        $attribute['user_id'] = Auth::guard('seller')->id();
         if ($request->hasFile('image'))
         {
             $imageName = 'category_' . time() .  "." . $request->image->extension();
@@ -42,7 +44,7 @@ class CategoryController extends Controller
         }
         Category::create($attribute);
 
-        return redirect()->route('category.create')->with('message', 'Create Success');
+        return back()->with('message', 'Create Success');
     }
 
     /**

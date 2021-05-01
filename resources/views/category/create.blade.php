@@ -23,10 +23,10 @@
                @endif
                <form action="{{route('category.store')}}" method="POST" enctype="multipart/form-data">
                    @csrf
-                   <label for="name">Enter Category Name</label>
-                   <input type="text" id="name" class="form-control" name="category_name">
-                   <label for="image">Upload Image(Max 2MB)</label>
-                   <input type="file" name="image" id="image" class="form-control-file">
+                   <label for="name">Category Name</label>
+                   <input type="text" id="name" class="form-control" name="category_name" autofocus>
+                  {{-- <label for="image">Upload Image(Max 2MB)</label>
+                   <input type="file" name="image" id="image" class="form-control-file">--}}
 
                    <button type="submit" class="btn btn-secondary mt-3">Create <i class="fa fa-save"></i></button>
                </form>

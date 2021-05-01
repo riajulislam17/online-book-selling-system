@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Seller;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -12,14 +15,23 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    public function __construct(){
-        //$this->middleware('auth')->except([ 'show', 'home']);
+    public function __construct()
+    {
         $this->middleware('auth:seller')->except(['show', 'home']);
     }
 
     public function home()
     {
-        return view('customer.index', ['products' => Product::all()->sortByDesc('id'), 'shops' => Seller::all()]);
+        return view('customer.index', [
+            'products' => Product::all()->sortByDesc('id'),
+            'shops' => Seller::all()
+        ]);
+    }
+
+    public function paginate()
+    {
+        $paginates = Product::paginate(10);
+        return view('page', compact('paginates'));
     }
 
     public function index()
@@ -32,7 +44,7 @@ class ProductController extends Controller
     public function create()
     {
         $categoryList = Category::all();
-        return view('product.create', ['category' => $categoryList]);
+        return view('product.create', ['categories' => $categoryList]);
     }
 
 
@@ -63,9 +75,7 @@ class ProductController extends Controller
         $product->seller_id = Auth::id();
         $product->save();
 
-        return redirect()->route('book.create')->with('message', 'Post Create Success');
-
-
+        return back()->with('message', 'Post Create Success');
     }
 
     public function show($id)
@@ -76,12 +86,11 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Product $product
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param Product $product
+     * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        $product = Product::findOrFail($id);
         return view('product.edit', ['product' => $product, 'category' => Category::all()]);
     }
 

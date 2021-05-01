@@ -6,7 +6,7 @@
             @if(Session::has('message'))
                 <p class="alert alert-success font-weight-bold">{{ Session::get('message') }}</p>
             @endif
-            <form action="{{ route('book.update', $product->id) }}" method="POST">
+            <form action="{{ route('product.update', $product->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">

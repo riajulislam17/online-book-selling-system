@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Seller;
 use Illuminate\Http\RedirectResponse;
@@ -15,14 +16,33 @@ class SellerController extends Controller
         return view('seller.dashboard', ['books' => Product::all()->where('seller_id', '=', Auth::guard('seller')->id())]);
     }
 
+
     public function profile()
     {
         return view('seller.profile', ['profileInfo' => Seller::findOrFail(Auth::guard('seller')->id())]);
     }
+
+
     public function showProfileEdit()
     {
         return view('seller.editProfile', ['profileInfo' => Seller::findOrFail(Auth::guard('seller')->id())]);
     }
+
+    public function categoryIndex()
+    {
+        $categories = Category::all()->where('user_id', '=', Auth::guard('seller')->id());
+        return view('category.create', compact('categories'));
+    }
+
+
+    public function productIndex()
+    {
+        $categories = Category::all()->where('user_id', '=', Auth::guard('seller')->id());
+        $products = Product::all()->where('user_id', '=', Auth::guard('seller')->id());
+        return view('product.create', ['products' => $products, 'categories' => $categories]);
+    }
+
+
     public function profileUpdate(Request $request, Seller $seller): RedirectResponse
     {
         $attributes = $request->validate([

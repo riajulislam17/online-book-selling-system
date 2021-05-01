@@ -65,32 +65,42 @@
                                 <span class="h3 text-info text-uppercase">Order List</span>
                             </div>
                             <hr>
-                            <table class="table table-bordered table-sm">
-                                <thead class="thead-light">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Product</th>
-                                    <th>Shop</th>
-                                    <th>Price</th>
-                                    <th>Total Price</th>
-                                    <th>Getaway</th>
-                                    <th>Time</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($orders as $order)
+                            @if(count($orders) > 0)
+                                <table class="table table-bordered table-sm">
+                                    <thead class="thead-light">
                                     <tr>
-                                        <td>{{ $order->id }}</td>
-                                        <td>{{ $order->product->book_name }}</td>
-                                        <td>{{ $order->seller['shop_name'] }}</td>
-                                        <td>{{ $order->product_price }}</td>
-                                        <td>{{ $order->total_price }}</td>
-                                        <td>{{ $order->getaway }}</td>
-                                        <td>{{ date('d-M-Y', strtotime($order->created_at))  }}</td>
+                                        <th>#</th>
+                                        <th>Product</th>
+                                        <th>Shop</th>
+                                        <th>Price</th>
+                                        <th>Piece</th>
+                                        <th>Total Price</th>
+                                        <th>Getaway</th>
+                                        <th>Time</th>
                                     </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($orders as $order)
+                                        <tr>
+                                            <td>{{ $order->id }}</td>
+                                            <td>{{ $order->product->book_name }}</td>
+                                            <td>{{ $order->seller['shop_name'] }}</td>
+                                            <td>{{ $order->product_price }}</td>
+                                            <td>{{ $order->product_count }} X</td>
+                                            <td>{{ $order->total_price }}</td>
+                                            <td>{{ $order->getaway }}</td>
+                                            <td>{{ date('d-M-Y', strtotime($order->created_at))  }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <div class="">
+                                    <div class="alert alert-info text-center fw-bold h5">
+                                        No Order Found
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

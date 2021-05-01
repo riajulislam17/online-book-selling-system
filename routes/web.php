@@ -23,8 +23,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [ProductController::class, 'home'])->name('homePage');
+Route::get('/paginate', [ProductController::class, 'paginate'])->name('page');
 Route::resource('category', CategoryController::class);
-Route::resource('book', ProductController::class);
+Route::resource('product', ProductController::class);
 
 Route::prefix('auth')->group(function (){
     Route::get('seller/login', [LoginController::class, 'showSellerLoginForm']);
@@ -46,6 +47,9 @@ Route::prefix('seller')->group(function (){
     Route::get('profile', [SellerController::class, 'profile'])->name('seller.profile');
     Route::get('profile/edit', [SellerController::class, 'showProfileEdit'])->name('seller.profile.edit');
     Route::patch('profile/edit/{seller}', [SellerController::class, 'profileUpdate'])->name('seller.profile.update');
+
+    Route::get('category', [SellerController::class, 'categoryIndex'])->name('seller.category.index');
+    Route::get('product', [SellerController::class, 'productIndex'])->name('seller.product.index');
 });
 
 

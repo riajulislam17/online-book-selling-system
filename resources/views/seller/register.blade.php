@@ -30,7 +30,8 @@
                        </span>
                     </div>
                     <input
-                        type="text" name="shop_name"
+                        type="text"
+                        name="shop_name"
                         class="form-control @error('shop_name') is-invalid @enderror"
                         placeholder="Shop Name"
                         aria-label="ShopName"
@@ -110,16 +111,13 @@
 
                 <div class="input-group mb-4">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Upload</span>
+                        <span class="input-group-text"><i class="fa fa-image"></i></span>
                     </div>
-                    <div class="custom-file">
                         <input type="file"
                                name="shop_image"
-                               class="custom-file-input @error('address') is-invalid @enderror"
+                               class="form-control-file @error('address') is-invalid @enderror"
                                id="shop_image"
                                value="{{ old('shop_imaage') }}">
-                        <label for="shop_image" class="custom-file-label">Choose File ...</label>
-                    </div>
                     @error('shop_imaage')
                         <p class="alert alert-danger">{{ $message }}</p>
                     @enderror
@@ -157,8 +155,11 @@
                            placeholder="Retype Password"
                            name="password_confirmation" required autocomplete="new-password">
                 </div>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center flex-column align-items-center">
                     <button class="btn btn-success">Create Account <i class="fa fa-user-plus"></i></button>
+                    <div  class="mt-3">
+                        <a href="{{ route('auth.seller.login') }}">Login</a>
+                    </div>
                 </div>
             </div>
         </form>

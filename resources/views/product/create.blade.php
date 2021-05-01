@@ -8,13 +8,13 @@
 
 @section('body')
     <div class="w-50 border shadow p-5">
-        <h3> Post a Book for sell <a href="{{route('book.index')}}" class="float-end">book list</a></h3>
+        <h3> Add Book <a href="{{route('product.index')}}" class="float-right"> <i class="fa fa-list"></i> </a></h3>
         <hr>
         @if(Session::has('message'))
             <p class="alert alert-success font-weight-bold">{{ Session::get('message') }}</p>
         @endif
 
-        <form action="{{route('book.store')}}" method="post" enctype="multipart/form-data">
+        <form action="{{route('product.store')}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="book_name">
@@ -54,18 +54,14 @@
 
             <div class="mb-3">
                 <label for="category_id">
-                    Enter category_id
+                    Category
                 </label>
-
                 <select name="category_id" id="category_id" class="form-control">
                     <option value="">select</option>
-                    @foreach($category as $index => $key)
+                    @foreach($categories as $index => $key)
                         <option value="{{$key->id}}">{{$key->category_name}}</option>
-
                     @endforeach
-
                 </select>
-
             </div>
 
 
@@ -73,9 +69,7 @@
                 <label for="category_id">
                     Enter image
                 </label>
-
                 <input type="file" id="image" name="image" class="form-control">
-
             </div>
 
 
@@ -84,11 +78,11 @@
                     Enter description
                 </label>
 
-                <textarea class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
+                <textarea class="form-control" name="description" id="description" cols="20" rows="10"></textarea>
 
             </div>
             <div class="d-flex justify-content-center p-2">
-                <input type="submit" class="btn btn-success" value="post" name="submit">
+                <button type="submit" class="btn btn-success">Post <i class="fa fa-save"></i></button>
             </div>
 
 

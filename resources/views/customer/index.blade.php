@@ -41,7 +41,7 @@
     <div class="">
         <div class="bg-light border-bottom p-2 py-3">
             <div class="container d-flex justify-content-between align-items-center">
-                <div class="h3 text-info fw-bold">Book Stall</div>
+                <div class="h3 text-primary fw-bold">{{ config('app.name') }}</div>
                 <div class="w-50">
                    <div class="input-group">
                        <input type="text"
@@ -135,21 +135,21 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active" data-bs-interval="10000">
-                        <img src="{{ asset('siteImage/bgLogin.jpg') }}" style="height: 30vh;" class="d-block w-100" alt="...">
+                        <img src="{{ asset('siteImage/img_1.png') }}" style="height: 35vh;" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>First slide label</h5>
                             <p>Some representative placeholder content for the first slide.</p>
                         </div>
                     </div>
                     <div class="carousel-item" data-bs-interval="2000">
-                        <img src="{{ asset('siteImage/bgLogin.jpg') }}" style="height: 30vh;" class="d-block w-100" alt="...">
+                        <img src="{{ asset('siteImage/img_2.png') }}" style="height: 35vh;" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Second slide label</h5>
                             <p>Some representative placeholder content for the second slide.</p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ asset('siteImage/bgLogin.jpg') }}" style="height: 30vh;" class="d-block w-100" alt="...">
+                        <img src="{{ asset('siteImage/img_3.png') }}" style="height: 35vh;" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Third slide label</h5>
                             <p>Some representative placeholder content for the third slide.</p>
@@ -171,7 +171,7 @@
                     @foreach($shops as $shop)
                         <div class="card m-3" style="width: 18rem;">
                             <div class="card-header">
-                                @if(strlen($shop->shop_image) > 0)
+                                @if(strlen($shop->shop_image) < 0)
                                     <img class="card-img-top custom-img" style="height: 250px;"  src="{{ asset($shop->shop_image) }}" alt="Shop Image">
                                 @else
                                     <img class="card-img-top custom-img" style="height: 250px;"  src="{{ asset('siteImage/shop_default_image.png') }}" alt="">
@@ -195,11 +195,11 @@
                 @foreach($products as $item)
                     <div class="card m-3" style="width: 18rem;">
                         <div class="base">
-                            <img class="card-img-top custom-img" style="height: 250px;"  src="{{asset('images/'.$item->image)}}" alt="Card image cap" onclick="window.location='{{ route('book.show', $item->id) }}'">
+                            <img class="card-img-top custom-img" style="height: 250px;"  src="{{asset('images/'.$item->image)}}" alt="Card image cap" onclick="window.location='{{ route('product.show', $item->id) }}'">
                         </div>
                         <div class="card-body">
                             <div class="card-title">
-                                <a href="{{ route('book.show', $item->id) }}" class="text-decoration-none text-capitalize text-success h4 fw-bold">{{ $item->book_name }}</a>
+                                <a href="{{ route('product.show', $item->id) }}" class="text-decoration-none text-capitalize text-success h4 fw-bold">{{ $item->book_name }}</a>
                             </div>
                             <div class="card-text">By <span class="text-info h5">{{ $item->writer_name  }}</span></div>
                             <div class="fw-bold custom-price"> {{ $item->price }} &#2547; </div>
@@ -225,11 +225,11 @@
 
                             @auth('seller')
                                 <div class="d-flex justify-content-between">
-                                    <a href="{{ route('book.edit', $item->id) }}" class="btn btn-secondary"><i class="fa fa-edit"></i></a>
-                                    <a href="{{ route('book.destroy', $item->id) }}" class="btn btn-danger"
+                                    <a href="{{ route('product.edit', $item->id) }}" class="btn btn-secondary"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ route('product.destroy', $item->id) }}" class="btn btn-danger"
                                        onclick="bookDelete()"
                                     > <i class="fa fa-trash"></i></a>
-                                    <form id="delete_product" action="{{ route('book.destroy', $item->id) }}" method="POST" class="sr-only">
+                                    <form id="delete_product" action="{{ route('product.destroy', $item->id) }}" method="POST" class="sr-only">
                                         @csrf
                                         @method('DELETE')
                                     </form>

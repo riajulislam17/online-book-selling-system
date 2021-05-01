@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="{{ asset('bootstrap-5.0.0-beta1-dist/css/bootstrap.css') }}" rel="stylesheet"/>
     <link href="{{ asset('fa/css/all.css') }}" rel="stylesheet"/>
-    <title>Registration Page</title>
+    <title>Customer Registration</title>
 </head>
 <body>
 <div class="d-flex justify-content-center flex-column" style="min-height: 100vh">
