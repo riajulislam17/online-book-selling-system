@@ -85,12 +85,12 @@ class RegisterController extends Controller
     protected function createSeller(Request $request): RedirectResponse
     {
         $validationRules = array(
-            'shop_name' => 'required|min:3',
-            'proprietor_name' => 'required|min:5',
+            'shop_name' => 'required',
+            'proprietor_name' => 'required',
             'email' => 'required|unique:sellers',
             'mobile' => 'required|unique:sellers',
-            'address' => 'required|min:5',
-            'shop_image' => 'nullable|max:2048|mimes:jpg,jpeg,png',
+            'address' => 'required',
+            'shop_image' => 'mimes:jpg,jpeg,png',
             'password' => 'required|confirmed'
         );
         $attributes = array(
