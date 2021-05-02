@@ -51,7 +51,7 @@ class ProductController extends Controller
     public function store(Request $request): RedirectResponse
     {
         try {
-            $this->validate($request, ['image' => 'required|image|mimes:jpeg,png,jpg|max:3080']);
+            $this->validate($request, ['image' => 'required|mimes:jpeg,png,jpg|max:3080']);
         } catch (ValidationException $e) {
             return back()->with('message', 'Image upload failed');
         }
