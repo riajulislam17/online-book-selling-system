@@ -24,7 +24,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($books as $index => $item)
+            @foreach($products as $index => $item)
                 <tr>
                     <td> {{ $item->id  }} </td>
                     <td>
