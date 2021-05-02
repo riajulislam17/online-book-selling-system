@@ -114,9 +114,10 @@ class RegisterController extends Controller
                 $attributes['shop_image'] = '';
             }
             Seller::create($attributes);
+            return redirect()->intended('auth/seller/login');
         }
 
-        return redirect()->intended('auth/seller/login');
+        return back()->withInput($request->only(['shop_name', 'proprietor_name', 'email', 'mobile', 'address']))->with('Registration Failed');
     }
 
     public function showSellerRegisterForm()

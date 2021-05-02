@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [ProductController::class, 'home'])->name('homePage');
-Route::get('/paginate', [ProductController::class, 'paginate'])->name('page');
+Route::get('/browsByShop', [ProductController::class, 'browsByShop'])->name('shop.view');
 Route::resource('category', CategoryController::class);
 Route::resource('product', ProductController::class);
 

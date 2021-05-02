@@ -17,7 +17,7 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:seller')->except(['show', 'home']);
+        $this->middleware('auth:seller')->except(['show', 'home', 'browsByShop']);
     }
 
     public function home()
@@ -28,10 +28,10 @@ class ProductController extends Controller
         ]);
     }
 
-    public function paginate()
+    public function browsByShop()
     {
-        $paginates = Product::paginate(10);
-        return view('page', compact('paginates'));
+        $products = Product::paginate();
+        return view('viewByShop', compact('products'));
     }
 
     public function index()
