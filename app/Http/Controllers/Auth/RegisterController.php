@@ -103,9 +103,22 @@ class RegisterController extends Controller
             'password' => Hash::make($request->input('password')),
         );
 
-        $validator = Validator::make($request->all(),$validationRules);
+        //$validator = Validator::make($request->all(),$validationRules);
 
-        if (!$validator->fails()){
+        $request->validate($validationRules);
+
+        if ($request->hasFile('shop_image')){
+            $imageName = 'shop_image_'. time() . '.'. $request->shop_image->extension();
+            $request->shop_image->move(public_path('images'), $imageName);
+            $attributes['shop_image'] = 'images/'.$imageName;
+        }else{
+            $attributes['shop_image'] = '';
+        }
+
+        Seller::create($attributes);
+        return redirect()->intended('auth/seller/login');
+
+/*        if (!$validator->fails()){
             if ($request->hasFile('shop_image')){
                 $imageName = 'shop_image_'. time() . '.'. $request->shop_image->extension();
                 $request->shop_image->move(public_path('images'), $imageName);
@@ -115,9 +128,10 @@ class RegisterController extends Controller
             }
             Seller::create($attributes);
             return redirect()->intended('auth/seller/login');
-        }
+        }*/
 
-        return back()->withInput($request->only(['shop_name', 'proprietor_name', 'email', 'mobile', 'address']))->with('Registration Failed');
+
+        //return back()->withInput($request->only(['shop_name', 'proprietor_name', 'email', 'mobile', 'address']))->with('Registration Failed');
     }
 
     public function showSellerRegisterForm()

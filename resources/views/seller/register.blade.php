@@ -23,118 +23,137 @@
                 <div class="border-bottom fw-bold text-center h3 bg-light mb-4 py-3">
                     Seller Registration Form
                 </div>
-                <div class="input-group mb-4">
-                    <div class="input-group-prepend">
+                <div class="">
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
                        <span class="input-group-text">
                            <i class="fas fa-store p-1"></i>
                        </span>
+                        </div>
+                        <input
+                            type="text"
+                            name="shop_name"
+                            class="form-control @error('shop_name') is-invalid @enderror"
+                            placeholder="Shop Name"
+                            aria-label="ShopName"
+                            value="{{ old('shop_name') }}"
+                            autofocus
+                            aria-describedby="basic-addon1">
                     </div>
-                    <input
-                        type="text"
-                        name="shop_name"
-                        class="form-control @error('shop_name') is-invalid @enderror"
-                        placeholder="Shop Name"
-                        aria-label="ShopName"
-                        value="{{ old('shop_name') }}"
-                        autofocus
-                        aria-describedby="basic-addon1">
                     @error('shop_name')
-                        <p class="alert alert-danger">{{ $message }}</p>
+                    <p class="alert alert-danger">{{ $message }}</p>
                     @enderror
                 </div>
-                <div class="input-group mb-4">
-                    <div class="input-group-prepend">
+                <div class="">
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
                        <span class="input-group-text">
                            <i class="fas fa-user p-1"></i>
                        </span>
+                        </div>
+                        <input type="text"
+                               name="proprietor_name"
+                               class="form-control  @error('proprietor_name') is-invalid @enderror"
+                               placeholder="Proprietor Name"
+                               value="{{ old('proprietor_name') }}"
+                               aria-label="ProprietorName"
+                               aria-describedby="basic-addon2">
                     </div>
-                    <input type="text"
-                           name="proprietor_name"
-                           class="form-control  @error('proprietor_name') is-invalid @enderror"
-                           placeholder="Proprietor Name"
-                           value="{{ old('proprietor_name') }}"
-                           aria-label="ProprietorName"
-                           aria-describedby="basic-addon2">
                     @error('proprietor_name')
                     <p class="alert alert-danger">{{ $message }}</p>
                     @enderror
                 </div>
-                <div class="input-group mb-4">
-                    <div class="input-group-prepend">
+
+
+                <div class="">
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
                    <span class="input-group-text">
                        <i class="fa fa-phone-alt p-1"></i>
                    </span>
+                        </div>
+                        <input type="text" name="mobile"
+                               class="form-control @error('mobile') is-invalid @enderror"
+                               placeholder="Mobile Number (11 Digit)"
+                               value="{{ old('mobile') }}"
+                               aria-label="Mobile"
+                               aria-describedby="basic-addon3">
                     </div>
-                    <input type="text" name="mobile"
-                           class="form-control @error('mobile') is-invalid @enderror"
-                           placeholder="Mobile Number (11 Digit)"
-                           value="{{ old('mobile') }}"
-                           aria-label="Mobile"
-                           aria-describedby="basic-addon3">
                     @error('mobile')
                     <p class="alert alert-danger">{{ $message }}</p>
                     @enderror
                 </div>
-                <div class="input-group mb-4">
-                    <div class="input-group-prepend">
+                <div>
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
                    <span class="input-group-text">
                        <i class="fa fa-mail-bulk p-1"></i>
                    </span>
+                        </div>
+                        <input type="text" name="email"
+                               class="form-control @error('email') is-invalid @enderror"
+                               placeholder="Email Address"
+                               value="{{ old('email') }}"
+                               aria-label="Mobile"
+                               aria-describedby="basic-addon3">
+
                     </div>
-                    <input type="text" name="email"
-                           class="form-control @error('email') is-invalid @enderror"
-                           placeholder="Email Address"
-                           value="{{ old('email') }}"
-                           aria-label="Mobile"
-                           aria-describedby="basic-addon3">
                     @error('email')
                     <p class="alert alert-danger">{{ $message }}</p>
                     @enderror
                 </div>
-                <div class="input-group mb-4">
-                    <div class="input-group-prepend">
+                <div class="">
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
                        <span class="input-group-text">
                            <i class="fa fa-map-marked p-1"></i>
                        </span>
+                        </div>
+                        <input type="text"
+                               name="address"
+                               class="form-control @error('address') is-invalid @enderror"
+                               placeholder="Address (Road no, Police Station, District)"
+                               value="{{ old('address') }}"
+                               aria-label="Address"
+                               aria-describedby="basic-addon4">
                     </div>
-                    <input type="text"
-                           name="address"
-                           class="form-control @error('address') is-invalid @enderror"
-                           placeholder="Address (Road no, Police Station, District)"
-                           value="{{ old('address') }}"
-                           aria-label="Address"
-                           aria-describedby="basic-addon4">
                     @error('address')
-                        <p class="alert alert-danger">{{ $message }}</p>
+                    <p class="alert alert-danger">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <div class="input-group mb-4">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fa fa-image"></i></span>
-                    </div>
+                <div class="">
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-image"></i></span>
+                        </div>
                         <input type="file"
                                name="shop_image"
                                class="form-control-file @error('address') is-invalid @enderror"
                                id="shop_image"
                                value="{{ old('shop_imaage') }}">
+
+                    </div>
                     @error('shop_imaage')
-                        <p class="alert alert-danger">{{ $message }}</p>
+                    <p class="alert alert-danger">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <div class="input-group mb-4">
-                    <div class="input-group-prepend">
+                <div class="">
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
                    <span class="input-group-text">
                        <i class="fa fa-key p-1"></i>
                    </span>
+                        </div>
+                        <label for="password" class="sr-only"></label>
+                        <input id="password"
+                               type="password"
+                               class="form-control @error('password') is-invalid @enderror"
+                               placeholder="Password"
+                               name="password" required autocomplete="new-password">
+
                     </div>
-                    <label for="password" class="sr-only"></label>
-                    <input id="password"
-                           type="password"
-                           class="form-control @error('password') is-invalid @enderror"
-                           placeholder="Password"
-                           name="password" required autocomplete="new-password">
                     @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
