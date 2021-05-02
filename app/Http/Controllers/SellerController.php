@@ -39,7 +39,7 @@ class SellerController extends Controller
     {
         $categories = Category::all()->where('user_id', '=', Auth::guard('seller')->id());
         $products = Product::all()->where('user_id', '=', Auth::guard('seller')->id());
-        return view('product.create', ['products' => $products, 'categories' => $categories]);
+        return view('product.index', ['products' => $products, 'categories' => $categories]);
     }
 
 
