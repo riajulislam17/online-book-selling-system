@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
-use App\Models\order;
+use App\Models\Invoice;
 use App\Models\Product;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class OrderController extends Controller
+class InvoiceController extends Controller
 {
     public function __construct()
     {
@@ -26,18 +30,19 @@ class OrderController extends Controller
      * Show the form for creating a new resource.
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|Request
+     * @return Factory|Application|View
      */
     public function create(Product $product)
     {
         $currentUser = Auth::guard('customer')->user()->address;
-        return view('order.create', ['product' => $product, 'address' => $currentUser]);
+        return view('invoices.create', ['product' => $product, 'address' => $currentUser]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     * @param Product $product
      * @return RedirectResponse
      */
     public function store(Request $request, Product $product): RedirectResponse
@@ -57,17 +62,17 @@ class OrderController extends Controller
             'address' => $request->input('address'),
         );
 
-        order::create($attributes);
+        Invoice::create($attributes);
         return redirect()->route('customer.profile');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\order  $order
-     * @return \Illuminate\Http\Response
+     * @param Invoice $invoice
+     * @return Response
      */
-    public function show(order $order)
+    public function show(Invoice $invoice)
     {
         //
     }
@@ -75,10 +80,10 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\order  $order
-     * @return \Illuminate\Http\Response
+     * @param Invoice $invoice
+     * @return Response
      */
-    public function edit(order $order)
+    public function edit(Invoice $invoice)
     {
         //
     }
@@ -87,10 +92,10 @@ class OrderController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  \App\Models\order  $order
-     * @return \Illuminate\Http\Response
+     * @param Invoice $invoice
+     * @return Response
      */
-    public function update(Request $request, order $order)
+    public function update(Request $request, Invoice $invoice)
     {
         //
     }
@@ -98,10 +103,10 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\order  $order
-     * @return \Illuminate\Http\Response
+     * @param Invoice $invoice
+     * @return Response
      */
-    public function destroy(order $order)
+    public function destroy(Invoice $invoice)
     {
         //
     }

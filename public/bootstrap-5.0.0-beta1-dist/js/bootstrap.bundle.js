@@ -2731,7 +2731,7 @@
   /*
   given a DOM element, return the list of all scroll parents, up the list of ancesors
   until we get to the top window object. This list is what we attach scroll listeners
-  to, because if any of these parent elements scroll, we'll need to re-calculate the 
+  to, because if any of these parent elements scroll, we'll need to re-calculate the
   reference element's position.
   */
 
@@ -3460,8 +3460,8 @@
   }
 
   function orderModifiers(modifiers) {
-    // order based on dependencies
-    var orderedModifiers = order(modifiers); // order based on phase
+    // invoices based on dependencies
+    var orderedModifiers = order(modifiers); // invoices based on phase
 
     return modifierPhases.reduce(function (acc, phase) {
       return acc.concat(orderedModifiers.filter(function (modifier) {
@@ -3654,7 +3654,7 @@
           options.onFirstUpdate(state);
         }
       }); // Modifiers have the ability to execute arbitrary code before the first
-      // update cycle runs. They will be executed in the same order as the update
+      // update cycle runs. They will be executed in the same invoices as the update
       // cycle. This is useful when a modifier adds some persistent data that
       // other modifiers need to use, but the modifier is run after the dependent
       // one.

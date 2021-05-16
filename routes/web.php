@@ -4,9 +4,11 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SellerController;
+use App\Http\Controllers\SslCommerzPaymentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -57,15 +59,41 @@ Route::prefix('customer')->group(function (){
     Route::get('profile', [CustomerController::class, 'profile'])->name('customer.profile');
     Route::get('profile/edit', [CustomerController::class, 'showProfileEdit'])->name('customer.profile.edit');
     Route::patch('profile/edit/{customer}', [CustomerController::class, 'profileUpdate'])->name('customer.profile.update');
+    Route::get('cart/add/{product}', [CustomerController::class, 'addToCart'])->name('cart.add');
+    Route::get('cart/view', [CustomerController::class, 'viewCart'])->name('cart.view');
+    Route::get('cart/remove/{id}', [CustomerController::class, 'removeCart'])->name('cart.remove');
+});
+
+Route::prefix('admin')->group(function (){
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('orders', [DashboardController::class, 'orders'])->name('admin.orders');
+    Route::get('sellers', [DashboardController::class, 'sellers'])->name('admin.sellers');
+    Route::get('customers', [DashboardController::class, 'customers'])->name('admin.customers');
+    Route::get('products', [DashboardController::class, 'products'])->name('admin.products');
 });
 
 
-Route::prefix('order')->group(function (){
-    Route::get('create/{product}', [OrderController::class, 'create'])->name('order.create');
-    Route::post('store/{product}', [OrderController::class, 'store'])->name('order.store');
+Route::prefix('invoices')->group(function (){
+    Route::get('create/{product}', [InvoiceController::class, 'create'])->name('invoices.create');
+    Route::post('store/{product}', [InvoiceController::class, 'store'])->name('invoices.store');
 });
 
 
+
+// SSLCOMMERZ Start
+Route::get('/payment/', [SslCommerzPaymentController::class, 'exampleEasyCheckout'])->name('payment');
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout'])->name('payment.old');
+Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END
 
 Auth::routes();
 

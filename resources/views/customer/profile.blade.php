@@ -66,7 +66,7 @@
                             </div>
                             <hr>
                             @if(count($orders) > 0)
-                                <table class="table table-bordered table-sm">
+                                <table class="table table-bordered table-sm" id="dataTable">
                                     <thead class="thead-light">
                                     <tr>
                                         <th>#</th>

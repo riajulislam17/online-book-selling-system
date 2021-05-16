@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title> @yield('title') | {{ config('app.name') }} </title>
+    <title> @yield('title', 'Welcome ') | {{ config('app.name') }} </title>
     <link href="{{asset('theme/css/styles.css')}}" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
@@ -76,28 +76,49 @@
 
                     <div class="sb-sidenav-menu-heading">Interface</div>
                     @if(Auth::guard('seller')->check())
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Category
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{{ route('category.create') }}">Create & List</a>
-                        </nav>
-                    </div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Category
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ route('category.create') }}">Create & List</a>
+                            </nav>
+                        </div>
 
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProduct" aria-expanded="false" aria-controls="collapseProduct">
-                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Product
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseProduct" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{{ route('product.create') }}">Create</a>
-                            <a class="nav-link" href="{{ route('seller.product.index')  }}">List</a>
-                        </nav>
-                    </div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProduct" aria-expanded="false" aria-controls="collapseProduct">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Product
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseProduct" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ route('product.create') }}">Create</a>
+                                <a class="nav-link" href="{{ route('seller.product.index')  }}">List</a>
+                            </nav>
+                        </div>
+                    @elseif(Auth::User())
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Category
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ route('admin.products') }}">Products</a>
+                            </nav>
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ route('admin.sellers') }}">Sellers</a>
+                            </nav>
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ route('admin.customers') }}">Customers</a>
+                            </nav>
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ route('admin.orders') }}">Orders</a>
+                            </nav>
+                        </div>
+
                     @endif
 
 {{--
@@ -152,9 +173,8 @@
                 @elseif(Auth::guard('customer')->check())
                     <div class="small">Logged in as:</div>
                     {{ Auth::guard('customer')->user()->first_name }}
-                @elseif(Auth::user()->check())
-                    <div class="small">Logged in as:</div>
-                    {{ Auth::user()->first_name }}
+                @elseif(Auth::User())
+                    <div class="small">Logged in as: {{ Auth::User()->first_name }}</div>
                 @endif
             </div>
         </nav>

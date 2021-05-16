@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -22,4 +24,11 @@ class Seller extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function lastMonthOrder(): HasMany
+    {
+        $currentDate = Carbon::now();
+        $oneMonthAgo = Carbon::parse($currentDate)->subYear();
+        return $this->hasMany(Invoice::class)->where('created_at', '>', $oneMonthAgo);
+    }
 }

@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
+use App\Models\Invoice;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Seller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -9,7 +15,31 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return view('dashboard');
+        $currentDate = Carbon::now();
+        $oneMonthAgo = Carbon::parse($currentDate)->subMonth();
+         $lastMonthIncome = Invoice::all()->where('created_at', '>', $oneMonthAgo);
+        return view('dashboard', ['seller' => Seller::all()]);
+    }
+
+    public function sellers()
+    {
+        return view('admin.sellers', ['sellers' => Seller::all()]);
+    }
+
+
+    public function customers()
+    {
+        return view('admin.customers', ['customers' => Customer::all()]);
+    }
+
+    public function orders()
+    {
+        return view('admin.orders', ['orders' => Invoice::all()]);
+    }
+
+    public function products()
+    {
+        return view('admin.products', ['products' => Product::all()]);
     }
 
     public function sellerDashboard()

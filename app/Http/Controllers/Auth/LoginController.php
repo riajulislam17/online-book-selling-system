@@ -86,7 +86,7 @@ class LoginController extends Controller
         ));
 
         if (Auth::guard('customer')->attempt($attributes)){
-            return redirect()->intended('/');
+            return redirect()->intended('customer/profile');
         }
         return back()->withInput($request->only(['mobile']))->with('message', 'Login Failed');
     }

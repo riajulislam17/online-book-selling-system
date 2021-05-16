@@ -33,7 +33,7 @@ ORDER
                 <td id="totalPrice">{{$product->price}}</td>
             </tr>
         </table>
-        <form action="{{ route('order.store', $product->id) }}" method="post">
+        <form action="{{ route('invoices.store', $product->id) }}" method="post">
             @csrf
             <div class="">
                 <label for="product_count">

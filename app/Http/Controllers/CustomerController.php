@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
-use App\Models\order;
+use App\Models\Invoice;
+use App\Models\Product;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:customer');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +24,7 @@ class CustomerController extends Controller
     {
         $customerId = Auth::guard('customer')->id();
         $customerInfo = Customer::findOrFail($customerId);
-        $orders = order::all()->where('customer_id', '=', $customerId);
+        $orders = Invoice::all()->where('customer_id', '=', $customerId);
         return view('customer.profile', ['profileInfo' => $customerInfo, 'orders' => $orders]);
     }
 
@@ -26,8 +32,34 @@ class CustomerController extends Controller
     {
         return view('customer.editProfile', ['profileInfo' => Customer::findOrFail(Auth::guard('customer')->id())]);
     }
+    public function addToCart(Product $product): RedirectResponse
+    {
+        $userId = Auth::guard('customer')->id();
+        \Cart::session($userId)->add(array(
+            'id' => $product->id, // unique row ID
+            'name' => $product->book_name,
+            'price' => $product->price,
+            'quantity' => 1,
+            'attributes' => array(),
+            'associatedModel' => $product
+        ));
+        return back()->with('message', 'Add to Cart success');
+    }
+    public function viewCart()
+    {
+        $userId = Auth::guard('customer')->id();
+        $cartCollection = \Cart::session($userId)->getContent();
+        return view('invoices.cart_view', ['carts' => $cartCollection]);
+    }
 
-    public function profileUpdate(Request $request, Customer $customer): \Illuminate\Http\RedirectResponse
+    public function removeCart($id): RedirectResponse
+    {
+        $userId = Auth::guard('customer')->id();
+        \Cart::session($userId)->remove($id);
+        return back();
+    }
+
+    public function profileUpdate(Request $request, Customer $customer): RedirectResponse
     {
         $attributes = $request->validate([
             'first_name' => 'required',

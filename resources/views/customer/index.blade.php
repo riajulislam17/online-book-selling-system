@@ -8,8 +8,9 @@
     <title>Welcome To {{ config('app.name') }}</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Kurale&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css' )}}">
+
     <link rel="stylesheet" href="{{ asset('fa/css/all.min.css' )}}">
+    <link rel="stylesheet" href="{{ asset('bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css' )}}">
     <script src="{{ asset('bootstrap-5.0.0-beta1-dist/js/bootstrap.bundle.min.js') }}"></script>
     <style>
         *{
@@ -59,6 +60,14 @@
 
                <div>
                    <div class="dropdown">
+                       @if(Auth::guard('customer')->check())
+                       <a href="{{ route('cart.view') }}" class="text-decoration-none">Cart
+                           <span class="badge-danger bg-danger rounded text-light px-1">
+                               {{ Cart::session(Auth::guard('customer')->user()->id)->getContent()->count() }}
+                           </span>
+                       </a>
+                           &nbsp;
+                       @endif
                        <a class="dropdown-toggle text-decoration-none"
                           href="#" role="button"
                           id="dropdownMenuLink"
@@ -220,7 +229,8 @@
                             @if($item->stock == 0)
                                 <p class="alert alert-danger h5">Out of Stock</p>
                             @else
-                                <a href="{{ route('order.create', $item->id) }}" class="card-link">Buy Now</a>
+                                <a href="{{ route('invoices.create', $item->id) }}" class="card-link">Buy Now</a>
+                                <a href="{{ route('cart.add', $item->id) }}" class="card-link">add to Card</a>
                             @endif
 
                             @auth('seller')

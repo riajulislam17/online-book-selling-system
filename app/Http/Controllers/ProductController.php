@@ -28,6 +28,8 @@ class ProductController extends Controller
         ]);
     }
 
+
+
     public function browsByShop()
     {
         $products = Product::paginate();

@@ -16972,7 +16972,7 @@ sort:
   search:
     terms:
       - filter
-      - order
+      - invoices
   styles:
     - solid
   unicode: f0dc
@@ -16988,7 +16988,7 @@ sort-alpha-down:
       - alphabetical
       - arrange
       - filter
-      - order
+      - invoices
       - sort-alpha-asc
   styles:
     - solid
@@ -17003,7 +17003,7 @@ sort-alpha-down-alt:
       - alphabetical
       - arrange
       - filter
-      - order
+      - invoices
       - sort-alpha-asc
   styles:
     - solid
@@ -17020,7 +17020,7 @@ sort-alpha-up:
       - alphabetical
       - arrange
       - filter
-      - order
+      - invoices
       - sort-alpha-desc
   styles:
     - solid
@@ -17035,7 +17035,7 @@ sort-alpha-up-alt:
       - alphabetical
       - arrange
       - filter
-      - order
+      - invoices
       - sort-alpha-desc
   styles:
     - solid
@@ -17052,7 +17052,7 @@ sort-amount-down:
       - arrange
       - filter
       - number
-      - order
+      - invoices
       - sort-amount-asc
   styles:
     - solid
@@ -17066,7 +17066,7 @@ sort-amount-down-alt:
     terms:
       - arrange
       - filter
-      - order
+      - invoices
       - sort-amount-asc
   styles:
     - solid
@@ -17082,7 +17082,7 @@ sort-amount-up:
     terms:
       - arrange
       - filter
-      - order
+      - invoices
       - sort-amount-desc
   styles:
     - solid
@@ -17096,7 +17096,7 @@ sort-amount-up-alt:
     terms:
       - arrange
       - filter
-      - order
+      - invoices
       - sort-amount-desc
   styles:
     - solid
@@ -17114,7 +17114,7 @@ sort-down:
       - arrow
       - descending
       - filter
-      - order
+      - invoices
       - sort-desc
   styles:
     - solid
@@ -17131,7 +17131,7 @@ sort-numeric-down:
       - arrange
       - filter
       - numbers
-      - order
+      - invoices
       - sort-numeric-asc
   styles:
     - solid
@@ -17146,7 +17146,7 @@ sort-numeric-down-alt:
       - arrange
       - filter
       - numbers
-      - order
+      - invoices
       - sort-numeric-asc
   styles:
     - solid
@@ -17163,7 +17163,7 @@ sort-numeric-up:
       - arrange
       - filter
       - numbers
-      - order
+      - invoices
       - sort-numeric-desc
   styles:
     - solid
@@ -17178,7 +17178,7 @@ sort-numeric-up-alt:
       - arrange
       - filter
       - numbers
-      - order
+      - invoices
       - sort-numeric-desc
   styles:
     - solid
@@ -17196,7 +17196,7 @@ sort-up:
       - arrow
       - ascending
       - filter
-      - order
+      - invoices
       - sort-asc
   styles:
     - solid
