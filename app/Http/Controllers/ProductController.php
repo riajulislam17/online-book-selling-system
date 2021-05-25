@@ -30,10 +30,10 @@ class ProductController extends Controller
 
 
 
-    public function browsByShop()
+    public function browsByShop(Category $category)
     {
-        $products = Product::paginate();
-        return view('viewByShop', compact('products'));
+        $products = Product::all()->where('category_id', '=', $category->id);
+        return view('viewByShop', ['products' => $products, 'category' =>  $category]);
     }
 
     public function index()

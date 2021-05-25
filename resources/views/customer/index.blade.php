@@ -111,7 +111,12 @@
                                </form>
                            @elseif(Auth::check())
                                <li>
-                                   <a class="text-decoration-none" href="{{ route('logout') }}"
+                                   <a href="{{ route('admin.dashboard') }}" title="Dashboard" class="text-decoration-none dropdown-item">
+                                       Dashboard (Admin)
+                                   </a>
+                               </li>
+                               <li>
+                                   <a class="text-decoration-none dropdown-item" href="{{ route('logout') }}"
                                       onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                        {{ __('Logout') }}
@@ -181,9 +186,10 @@
                         <div class="card m-3" style="width: 18rem;">
                             <div class="card-header">
                                 @if(strlen($shop->shop_image) < 0)
-                                    <img class="card-img-top custom-img" style="height: 250px;"  src="{{ asset($shop->shop_image) }}" alt="Shop Image">
+                                    <img class="card-img-top custom-img" style="height: 250px;"
+                                         src="{{ asset($shop->shop_image) }}" alt="Shop Image" onclick="window.location='{{ route('shop.view', $shop->id) }}'">
                                 @else
-                                    <img class="card-img-top custom-img" style="height: 250px;"  src="{{ asset('siteImage/shop_default_image.png') }}" alt="">
+                                    <img class="card-img-top custom-img" style="height: 250px;"  src="{{ asset('siteImage/shop_default_image.png') }}" alt="" onclick="window.location='{{ route('shop.view', $shop->id) }}'">
                                 @endif
                             </div>
                             <div class="card-body">

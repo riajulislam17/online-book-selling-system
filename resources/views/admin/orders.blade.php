@@ -2,7 +2,7 @@
 
 @section('body')
     <div class="">
-        <div class="h3 bg-light p-2 "></div>
+        <div class="h3 bg-light p-2 ">Order List</div>
         <table class="table table-bordered table-sm table-responsive-md" id="dataTable">
             <thead>
             <tr>

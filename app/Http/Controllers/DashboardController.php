@@ -12,13 +12,24 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
         $currentDate = Carbon::now();
         $oneMonthAgo = Carbon::parse($currentDate)->subMonth();
          $lastMonthIncome = Invoice::all()->where('created_at', '>', $oneMonthAgo);
-        return view('dashboard', ['seller' => Seller::all()]);
+
+        return view('dashboard', [
+            'seller' => Seller::all(),
+            'products' => Product::all(),
+            'customers' => Customer::all(),
+            'sellers' => Seller::all(),
+            'invoices' => Invoice::all()
+        ]);
     }
 
     public function sellers()

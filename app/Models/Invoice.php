@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Invoice extends Model
 {
     protected $fillable = [
-      'seller_id', 'customer_id', 'product_id', 'product_count', 'product_price', 'total_price', 'getaway', 'address'
+      'seller_id', 'customer_id', 'product_id', 'product_count', 'product_price', 'total_price', 'getaway', 'order_id', 'address'
     ];
     use HasFactory;
 

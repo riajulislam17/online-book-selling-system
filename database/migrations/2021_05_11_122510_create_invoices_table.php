@@ -22,6 +22,7 @@ class CreateInvoicesTable extends Migration
             $table->string('product_price', 10);
             $table->string('total_price', 10);
             $table->string('getaway', 50);
+            $table->unsignedBigInteger('order_id');
             $table->text('address');
             $table->timestamps();
         });

@@ -64,6 +64,7 @@
                     @endforeach
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Total (BDT)</span>
+                        <input type="hidden" id="grand_total" value="{{ $totalPrice }}">
                         <strong>{{ $totalPrice }}  TK</strong>
                     </li>
                 @else
@@ -202,7 +203,7 @@
     obj.cus_phone = $('#mobile').val();
     obj.cus_email = $('#email').val();
     obj.cus_addr1 = $('#address').val();
-    obj.amount = $('#total_amount').val();
+    obj.amount = $('#grand_total').val();
 
     $('#sslczPayBtn').prop('postdata', obj);
 

@@ -31,4 +31,9 @@ class Seller extends Authenticatable
         $oneMonthAgo = Carbon::parse($currentDate)->subYear();
         return $this->hasMany(Invoice::class)->where('created_at', '>', $oneMonthAgo);
     }
+
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
 }
