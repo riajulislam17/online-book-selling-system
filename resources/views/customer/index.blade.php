@@ -235,8 +235,12 @@
                             @if($item->stock == 0)
                                 <p class="alert alert-danger h5">Out of Stock</p>
                             @else
-                                <a href="{{ route('invoices.create', $item->id) }}" class="card-link">Buy Now</a>
-                                <a href="{{ route('cart.add', $item->id) }}" class="card-link">add to Card</a>
+                                @if(Auth::guard('customer')->check() OR Auth::guest())
+                                   <div class="d-flex justify-content-between">
+                                       <a href="{{ route('invoices.create', $item->id) }}" class="btn btn-success">Buy Now</a>
+                                       <a href="{{ route('cart.add', $item->id) }}" class="btn btn-success">add to Card</a>
+                                   </div>
+                                @endif
                             @endif
 
                             @auth('seller')

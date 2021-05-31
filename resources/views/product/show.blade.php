@@ -18,15 +18,18 @@
                    <div class="card-text">
                        <span class="h5"> Tk. {{$data->price}} </span> <span class="text-info">You Save Tk. 15 (10%)</span>
                    </div>
+                   <div class="card-text">
+                       <p>{{ $data->description }}</p>
+                   </div>
+
                    <div class="card-title my-3">
                        @if(!$data->stock == 0)
                            <i class="fa fa-check-circle text-success"></i> In stock
+                           <a href="{{ route('cart.view') }}" class="btn btn-secondary">Buy Now</a>
+                           <a href="{{ route('cart.add', $data->id) }}" class="btn btn-secondary">add to Card</a>
                        @else
                            <h4 class="text-danger">Out Of Stock</h4>
                        @endif
-                   </div>
-                   <div class="card-text">
-                       <p>{{ $data->description }}</p>
                    </div>
                </div>
            </div>

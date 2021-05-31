@@ -95,7 +95,7 @@
                         <div class="collapse" id="collapseProduct" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{{ route('product.create') }}">Create</a>
-                                <a class="nav-link" href="{{ route('seller.product.index')  }}">List</a>
+                                <a class="nav-link" href="{{ route('seller.dashboard')  }}">List</a>
                             </nav>
                         </div>
                     @elseif(Auth::guard('customer')->check())

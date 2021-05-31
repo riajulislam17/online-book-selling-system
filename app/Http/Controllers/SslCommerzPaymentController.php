@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Invoice;
+use App\Models\Order;
 use DB;
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
@@ -97,8 +98,8 @@ class SslCommerzPaymentController extends Controller
     public function payViaAjax(Request $request)
     {
 
-        # Here you have to receive all the order data to initate the payment.
-        # Lets your oder trnsaction informations are saving in a table called "orders"
+        # Here you have to receive all the order data to initiate the payment.
+        # Lets your oder transaction information are saving in a table called "orders"
         # In orders table order uniq identity is "transaction_id","status" field contain status of the transaction, "amount" is the order amount to be paid and "currency" is for storing Site Currency which will be checked with paid currency.
 
         $requestData = (array)json_decode($request->cart_json);
@@ -154,6 +155,39 @@ class SslCommerzPaymentController extends Controller
                 'transaction_id' => $post_data['tran_id'],
                 'currency' => $post_data['currency']
             ]);
+        $orderId = Order::where('transaction_id', '=', $post_data['tran_id'])->first();
+
+
+        $userId = Auth::guard('customer')->id();
+
+        $cartCollection = \Cart::session($userId)->getContent();
+        foreach ($cartCollection as $collection){
+            $product = $collection->associatedModel;
+
+            $total_price = (int)$product->price * (int)$collection->quantity;
+
+            $attributes = array(
+                'seller_id' => $product->seller_id,
+                'customer_id' => Auth::guard('customer')->id(),
+                'product_id' => $product->id,
+                'product_count' => (int)$collection->quantity,
+                'product_price' => $product->price,
+                'total_price' => $total_price,
+                'getaway' => $orderId->id,
+                'address' => Auth::guard('customer')->user()->address,
+            );
+            Invoice::create($attributes);
+        }
+
+
+
+
+
+
+
+
+
+
 
 
         $sslc = new SslCommerzNotification();
@@ -189,11 +223,12 @@ class SslCommerzPaymentController extends Controller
                 /*
                 That means IPN did not work or IPN URL was not set in your merchant panel. Here you need to update order status
                 in order table as Processing or Complete.
-                Here you can also sent sms or email for successfull transaction to customer
+                Here you can also sent sms or email for successful transaction to customer
                 */
                 $update_product = DB::table('orders')
                     ->where('transaction_id', $tran_id)
                     ->update(['status' => 'Processing']);
+
 
                 $databaseStatus =  "Transaction is successfully Completed";
             } else {

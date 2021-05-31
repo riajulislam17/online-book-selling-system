@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="d-flex justify-content-center flex-column" style="min-height: 100vh">
-       <div class="w-25 mx-auto">
+       <div class="mx-auto" style="width: 1500px">
            <div class="border shadow p-5">
                <div class="border-bottom font-weight-bold text-center h3 bg-light mb-4">
                    Create new User

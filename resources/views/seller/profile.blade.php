@@ -53,6 +53,51 @@
                             </table>
                         </div>
                     </div>
+                    <div class="d-flex flex-row mt-4">
+                        <i class="fa fa-list mr-3" style="font-size: 55px; color: #0ecd8b"></i>
+                        <div class="w-100" >
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="h3 text-info text-uppercase">Order List</span>
+                            </div>
+                            <hr>
+                            @if(count($orders) > 0)
+                                <table class="table table-bordered table-sm" id="dataTable">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Product</th>
+                                        <th>Customer</th>
+                                        <th>Price</th>
+                                        <th>Piece</th>
+                                        <th>Total Price</th>
+                                        <th>Getaway</th>
+                                        <th>Time</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($orders as $order)
+                                        <tr>
+                                            <td>{{ $order->id }}</td>
+                                            <td>{{ $order->product->book_name }}</td>
+                                            <td>{{ $order->customer->first_name }} {{ $order->customer->last_name }}</td>
+                                            <td>{{ $order->product_price }}</td>
+                                            <td>{{ $order->product_count }} X</td>
+                                            <td>{{ $order->total_price }}</td>
+                                            <td>SSL Commerce (<small>{{ $order->order->status }}</small>)</td>
+                                            <td>{{ date('d-M-Y', strtotime($order->created_at))  }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <div class="">
+                                    <div class="alert alert-info text-center fw-bold h5">
+                                        No Order Found
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
 

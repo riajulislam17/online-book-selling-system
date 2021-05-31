@@ -8,7 +8,7 @@
 
 @section('body')
     <div class="w-50 border shadow p-5">
-        <h3> Add Book <a href="{{route('product.index')}}" class="float-right"> <i class="fa fa-list"></i> </a></h3>
+        <h3> Add Book <a href="{{route('seller.dashboard')}}" class="float-right"> <i class="fa fa-list"></i> </a></h3>
         <hr>
         @if(Session::has('message'))
             <p class="alert alert-success font-weight-bold">{{ Session::get('message') }}</p>
@@ -25,7 +25,7 @@
 
             <div class="mb-3">
                 <label for="publisher_name">
-                    Enter publisher_name
+                    Enter publisher name
                 </label>
                 <input type="text"  class="form-control" name="publisher_name" id="publisher_name">
             </div>
@@ -33,7 +33,7 @@
 
             <div class="mb-3">
                 <label for="writer_name">
-                    Enter writer_name
+                    Enter writer name
                 </label>
                 <input type="text" class="form-control" name="writer_name" id="writer_name">
             </div>

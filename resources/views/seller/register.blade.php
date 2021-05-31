@@ -7,11 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="{{ asset('bootstrap-5.0.0-beta1-dist/css/bootstrap.css') }}" rel="stylesheet"/>
     <link href="{{ asset('fa/css/all.css') }}" rel="stylesheet"/>
-    <title>Login Page</title>
+    <title>Register | Seller</title>
 </head>
 <body>
 <div class="d-flex justify-content-center flex-column" style="min-height: 100vh">
     <div class="w-25 mx-auto">
+        <ul class="nav nav-tabs">
+            <li class="nav-item w-50">
+                <a class="nav-link text-center fw-bold" href="{{ route('auth.customer.register') }}">Customer</a>
+            </li>
+            <li class="nav-item w-50">
+                <a class="nav-link active fw-bold text-center"
+                   aria-current="page"
+                   href="{{ route('auth.seller.register') }}">Seller</a>
+            </li>
+        </ul>
         <div class="">
             @if(Session::has('message'))
                 <p class="alert alert-success font-weight-bold">{{ Session::get('message') }}</p>

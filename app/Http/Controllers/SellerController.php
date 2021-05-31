@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Invoice;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Seller;
 use Illuminate\Http\RedirectResponse;
@@ -19,7 +21,10 @@ class SellerController extends Controller
 
     public function profile()
     {
-        return view('seller.profile', ['profileInfo' => Seller::findOrFail(Auth::guard('seller')->id())]);
+        return view('seller.profile', [
+            'profileInfo' => Seller::findOrFail(Auth::guard('seller')->id()),
+            'orders' => Invoice::all()->where('seller_id', '=', Auth::guard('seller')->id())
+        ]);
     }
 
 
