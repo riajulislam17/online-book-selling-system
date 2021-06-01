@@ -16,7 +16,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8 ml-3">
+                <div class="col-md-9 ml-3">
                     <div class="d-flex flex-row">
                         <i class="fa fa-info-circle mr-3" style="font-size: 60px; color: #0ecd8b"></i>
                         <div class="w-100" >
@@ -75,7 +75,7 @@
                                         <th>Price</th>
                                         <th>Piece</th>
                                         <th>Total Price</th>
-                                        <th>Getaway</th>
+                                        <th>Payment</th>
                                         <th>Time</th>
                                     </tr>
                                     </thead>
@@ -88,7 +88,7 @@
                                             <td>{{ $order->product_price }}</td>
                                             <td>{{ $order->product_count }} X</td>
                                             <td>{{ $order->total_price }}</td>
-                                            <td>{{ $order->getaway }}</td>
+                                            <td>SSLCommerce (<small>{{ $order->order->status }}</small>)</td>
                                             <td>{{ date('d-M-Y', strtotime($order->created_at))  }}</td>
                                         </tr>
                                     @endforeach
