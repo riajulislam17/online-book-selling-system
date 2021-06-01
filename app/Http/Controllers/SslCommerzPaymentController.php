@@ -174,6 +174,7 @@ class SslCommerzPaymentController extends Controller
                 'product_price' => $product->price,
                 'total_price' => $total_price,
                 'getaway' => $orderId->id,
+                'order_id' => $orderId->id,
                 'address' => Auth::guard('customer')->user()->address,
             );
             Invoice::create($attributes);

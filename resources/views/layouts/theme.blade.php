@@ -74,6 +74,10 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
+                        <a class="nav-link" href="{{ route('seller.profile') }}">
+                            <div class="sb-nav-link-icon"><i class="fa fa-shopping-basket"></i></div>
+                            Order list
+                        </a>
 
                         <div class="sb-sidenav-menu-heading">Interface</div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -98,6 +102,10 @@
                                 <a class="nav-link" href="{{ route('seller.dashboard')  }}">List</a>
                             </nav>
                         </div>
+
+
+
+
                     @elseif(Auth::guard('customer')->check())
                         <div class="sb-sidenav-menu-heading">Core</div>
                         <a class="nav-link" href="#">
