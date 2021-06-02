@@ -83,7 +83,7 @@
                                             <td>{{ $order->product_price }}</td>
                                             <td>{{ $order->product_count }} X</td>
                                             <td>{{ $order->total_price }}</td>
-                                            <td>SSL Commerce (<small>{{ $order->order->status }}</small>)</td>
+                                            <td>SSLCommerz (<small>{{ $order->order->status }}</small>)</td>
                                             <td>{{ date('d-M-Y', strtotime($order->created_at))  }}</td>
                                         </tr>
                                     @endforeach
